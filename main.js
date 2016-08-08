@@ -210,9 +210,11 @@ var timeUntil = function() {
     while (!isValidDate(futureDate) || (futureDate.getTime() <= currentDate.getTime())) {
         var date = document.getElementById('timeUntilDate').value;
 
-        var selectDate = date || "random";
-        if ((futureDate.getTime() <= currentDate.getTime()) || (futureDate.getTime() == currentDate.getTime())) {
+        var selectDate;
+        if (!isValidDate(futureDate) || (futureDate.getTime() <= currentDate.getTime())) {
             selectDate = "random";
+        } else {
+            selectDate = date;
         }
 
         if (selectDate == "random") {
@@ -528,3 +530,125 @@ var approximateSqrt = function() {
 
     document.getElementById('approxSqrtOutput').innerHTML = "The approximate square root of " + num + " is " + key.round(approximate, "nearest", 4) + " and it was " + percentOff + "% off the real value";
 };
+
+var normalDistribution = function() {
+    var normalCDF = function(a) {
+        var b = 1 / (1 + 0.2316419 * Math.abs(a));
+        var c = 0.3989423 * Math.exp(-a * a / 2);
+        var d = c * b * (0.3193815 + b * (-0.3565638 + b * (1.781478 + b * (-1.821256 + b * 1.330274))));
+        if (a > 0) {
+            d = 1 - d;
+        }
+        return d;
+    };
+    var calculate = function(a, b, c) {
+        var d = 0;
+        c = Math.abs(c);
+        if (c === 0) {
+            if (a < b) {
+                d = 0;
+            } else {
+                d = 1;
+            }
+        } else {
+            d = normalCDF((a - b) / c);
+        }
+        return d;
+    };
+
+    var mean = document.getElementById('ndfMean').value || key.random(Math.PI * 100);
+
+    var sd;
+    if ((mean > 0) || (mean < 0)) {
+        //Standard Deviation cannot be a negative number
+        sd = Math.abs(document.getElementById('ndfSD').value) || key.random(Math.abs(mean) / 10);
+    } else {
+        sd = Math.ans(document.getElementById('ndfSD').value) || 1;
+    }
+
+    var val = document.getElementById('ndfValue').value || key.random(mean + (sd * 4), mean - (sd * 4));
+
+    var result = key.round(calculate(val, mean, sd), "nearest", 4);
+
+    val = key.round(val, "nearest", 2);
+    mean = key.round(mean, "up", 2);
+
+    document.getElementById('ndfOutput').innerHTML = "X ~ N(" + mean + ", " + key.round(sd, "nearest", 2) + "²) --> P(X < " + val + ") = " + result;
+    console.log("P(Z < " + key.round((val - mean) / sd, "nearest", 2) + ")");
+};
+
+var averages = function() {
+    var isInt = function(a) {
+        if ((a % 1) == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    var mode = function(a) {
+        var b = [];
+        for (var i = 0; i < a.length; i++) {
+            b.push(a[i]);
+        }
+        b = key.countDupes(b);
+        var c = [];
+        for (var i = 0; i < b[1].length; i++) {
+            c.push(b[1][i]);
+        }
+        c.sort(key.sortDescending);
+        return b[0][b[1].indexOf(c[0])];
+    };
+    var median = function(a) {
+        var b = [];
+        for (var i = 0; i < a.length; i++) {
+            b.push(a[i]);
+        }
+        b.sort(key.sortAscending);
+        var c = (b.length - 1) / 2;
+        if (isInt(c)) {
+            return b[c];
+        } else {
+            return (b[key.round(c, "down")] + b[key.round(c, "up")]) / 2;
+        }
+    };
+    var mean = function(a) {
+        var b = 0;
+        for (var i = 0; i < a.length; i++) {
+            b += a[i];
+        }
+        return key.round(b / a.length, "nearest", 2);
+    };
+
+    var max = Math.abs(document.getElementById('avgMax').value) || key.random(Math.PI * 10, 10);
+    var min = Math.abs(document.getElementById('avgMin').value) || key.random(max, 1);
+    var length = Math.abs(document.getElementById('avgLengt').value) || key.random(Math.PI * 7.5, 5);
+
+    //Max and Min must not be the same values
+    while (min == max) {
+        min = key.random(max, 1);
+    }
+
+    //Max must be bigger than min
+    var bigger = [key.round(min), key.round(max)];
+    bigger.sort(key.sortAscending);
+
+    console.log("Max: " + bigger[1]);
+    console.log("Min: " + bigger[0]);
+    console.log("Length: " + key.round(length, "down"));
+
+    var list = [];
+    for (var i = 0; i < key.round(length, "down"); i++) {
+        list.push(key.round(key.random(bigger[1], bigger[0])));
+    }
+    console.log(list);
+
+    document.getElementById('avgOutput').innerHTML = "Mode: " + mode(list) + ". Median: " + median(list) + ". Mean: " + mean(list);
+};
+
+/*
+TODO List - 
+1. Enhancement {
+    a. None
+}
+2. None
+*/
