@@ -132,5 +132,177 @@ var getPrimes = function() {
 };
 
 var convertWeek = function() {
-    
+    var weekToConvert = document.getElementById('convertWeek').value || key.random(366 / 7);
+    var week = key.round(weekToConvert, "down");
+
+    var dayToConvert = (weekToConvert - week) * 7;
+    var day = key.round(dayToConvert, "down");
+
+    var hourToConvert = (dayToConvert - day) * 24;
+    var hour = key.round(hourToConvert, "down");
+
+    var minuteToConvert = (hourToConvert - hour) * 60;
+    var minute = key.round(minuteToConvert, "down");
+
+    var second = key.round((minuteToConvert - minute) * 60, "nearest", 2);
+
+    if (week == 1) {
+        week = week + " week, ";
+    } else {
+        week = week + " weeks, ";
+    }
+    if (day == 1) {
+        day = day + " day, ";
+    } else {
+        day = day + " days, ";
+    }
+    if (hour == 1) {
+        hour = hour + " hour, ";
+    } else {
+        hour = hour + " hours, ";
+    }
+    if (minute == 1) {
+        minute = minute + " minute and ";
+    } else {
+        minute = minute + " minutes and ";
+    }
+    if (second == 1) {
+        second = second + " second.";
+    } else {
+        second = second + " seconds.";
+    }
+
+    var converted = [week, day, hour, minute, second];
+    var output = "";
+    for (var i = 0; i < converted.length; i++) {
+        output = output + converted[i];
+    }
+    document.getElementById('convertedWeek').innerHTML = output;
+};
+
+var timeUntil = function() {
+    //http://ditio.net/2010/05/02/javascript-date-difference-calculation/
+
+    var inWeeks = function(a, b) {
+        var c = a.getTime();
+        var d = b.getTime();
+        return (c - d) / (7 * 24 * 60 * 60 * 1000);
+    };
+    var convertRound = function(a) {
+        if (a > 0) {
+            return key.round(a, "down");
+        } else if (a < 0) {
+            return key.round(a, "up");
+        } else {
+            return a;
+        }
+    };
+    var isValidDate = function(a) {
+        if (Object.prototype.toString.call(a) !== "[object Date]") {
+            return false;
+        }
+        return !isNaN(a.getTime());
+    };
+
+    var futureDate = new Date();
+    var currentDate = new Date();    
+
+    while (!isValidDate(futureDate) || (futureDate.getTime() <= currentDate.getTime())) {
+        var date = document.getElementById('timeUntilDate').value;
+        
+        var selectDate = date || "random";
+        if ((futureDate.getTime() <= currentDate.getTime()) || (futureDate.getTime() == currentDate.getTime())) {
+            selectDate = "random";
+        }
+
+        if (selectDate == "random") {
+            var tempDate = new Date();
+
+            var month = tempDate.getMonth() + 1;
+            if (month <= 9) {
+                month = "0" + month;
+            }
+
+            var days = tempDate.getDate();
+            if (days <= 9) {
+                days = "0" + days;
+            }
+
+            var year = tempDate.getFullYear() + 1;
+
+            var hours = tempDate.getHours();
+            if (hours <= 9) {
+                hours = "0" + hours;
+            }
+
+            var minutes = tempDate.getMinutes();
+            if (minutes <= 9) {
+                minutes = "0" + minutes;
+            }
+
+            var tempDate1 = month + " " + days + ", " + year + " " + hours + ":" + minutes;
+            tempDate1 = new Date(tempDate1);
+
+            var randomisedDate = key.random(tempDate1.getTime(), currentDate.getTime());
+
+            futureDate = new Date(randomisedDate);
+        } else {
+            futureDate = new Date(date);
+        }
+
+        currentDate = new Date(); 
+    }
+
+    currentDate = new Date();
+    var weekToConvert = inWeeks(futureDate, currentDate);
+    var week = convertRound(weekToConvert);
+
+    var dayToConvert = (weekToConvert - week) * 7;
+    var day = convertRound(dayToConvert);
+
+    var hourToConvert = (dayToConvert - day) * 24;
+    var hour = convertRound(hourToConvert);
+
+    var minuteToConvert = (hourToConvert - hour) * 60;
+    var minute = convertRound(minuteToConvert);
+
+    var second = key.round((minuteToConvert - minute) * 60, "nearest", 2);
+
+    if (week == 1) {
+        week = week + " week, ";
+    } else {
+        week = week + " weeks, ";
+    }
+
+    if (day == 1) {
+        day = day + " day, ";
+    } else {
+        day = day + " days, ";
+    }
+
+    if (hour == 1) {
+        hour = hour + " hour, ";
+    } else {
+        hour = hour + " hours, ";
+    }
+
+    if (minute == 1) {
+        minute = minute + " minute and ";
+    } else {
+        minute = minute + " minutes and ";
+    }
+
+    if (second == 1) {
+        second = second + " second left till " + futureDate + ".";
+    } else {
+        second = second + " seconds left till " + futureDate + ".";
+    }
+
+    var converted = [week, day, hour, minute, second];    
+    var output = "";
+    for (var i = 0; i < converted.length; i++) {
+        output = output + converted[i];
+    }
+
+    document.getElementById('timeUntilOutput').innerHTML = output;
 };

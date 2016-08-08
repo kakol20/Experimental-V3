@@ -47,14 +47,22 @@
 
 		<!-- Converts decimal Week into weeks, days, hours, minutes, and seconds -->
 		<form>
-			Hour to Convert: <input type="number" id="primesMax">
+			Hour to Convert: <input type="number" id="convertWeek">
 		</form>
 		<button onclick="convertWeek()">Convert Decimal Week</button>
 		<div id="convertedWeek"></div> <br>
 
+		<!-- Outputs time until future date -->
+		<form>
+			Future Date (like this - August 08, 2017 15:19:45): <input type="text" id="timeUntilDate">
+		</form>
+		<button onclick="timeUntil()">Time Until Date</button>
+		<div id="timeUntilOutput"></div> <br>
+
+		<!-- Other stuff -->
 		<button onclick="reload()">Reload Page</button>
 		<a href="https://twitter.com/the_banana_guy_" target="_blank">
-			<button>By kakol20 </button>
+			<button>By kakol20</button>
 		</a>
 		<a href="N/A" target="_blank">
 			<button>Github Page</button>
