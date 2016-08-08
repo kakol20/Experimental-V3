@@ -205,11 +205,11 @@ var timeUntil = function() {
     };
 
     var futureDate = new Date();
-    var currentDate = new Date();    
+    var currentDate = new Date();
 
     while (!isValidDate(futureDate) || (futureDate.getTime() <= currentDate.getTime())) {
         var date = document.getElementById('timeUntilDate').value;
-        
+
         var selectDate = date || "random";
         if ((futureDate.getTime() <= currentDate.getTime()) || (futureDate.getTime() == currentDate.getTime())) {
             selectDate = "random";
@@ -250,7 +250,7 @@ var timeUntil = function() {
             futureDate = new Date(date);
         }
 
-        currentDate = new Date(); 
+        currentDate = new Date();
     }
 
     currentDate = new Date();
@@ -298,11 +298,114 @@ var timeUntil = function() {
         second = second + " seconds left till " + futureDate + ".";
     }
 
-    var converted = [week, day, hour, minute, second];    
+    var converted = [week, day, hour, minute, second];
     var output = "";
     for (var i = 0; i < converted.length; i++) {
         output = output + converted[i];
     }
 
     document.getElementById('timeUntilOutput').innerHTML = output;
+};
+
+var toBinary = function() {
+    var n1;
+    var n2;
+    var n4;
+    var n8;
+    var n16;
+    var n32;
+    var n64;
+    var n128;
+
+    var n = document.getElementById('toBinaryValue').value || key.round(key.random(255));
+    console.log("Denary Value: " + n);
+
+    if (n > 255) {
+        document.getElementById('toBinaryOutput').innerHTML = "Overflow Error";
+    } else if ((n % 1) !== 0) {
+        document.getElementById('toBinaryOutput').innerHTML = "Invalid Denary Value";
+    } else {
+        if (n >= 128) {
+            n128 = "1";
+            n -= 128;
+        } else {
+            n128 = "0";
+        }
+
+        if (n >= 64) {
+            n64 = "1";
+            n -= 64;
+        } else {
+            n64 = "0";
+        }
+
+        if (n >= 32) {
+            n32 = "1";
+            n -= 32;
+        } else {
+            n32 = "0";
+        }
+
+        if (n >= 16) {
+            n16 = "1";
+            n -= 16;
+        } else {
+            n16 = "0";
+        }
+
+        if (n >= 8) {
+            n8 = "1";
+            n -= 8;
+        } else {
+            n8 = "0";
+        }
+
+        if (n >= 4) {
+            n4 = "1";
+            n -= 4;
+        } else {
+            n4 = "0";
+        }
+
+        if (n >= 2) {
+            n2 = "1";
+            n -= 2;
+        } else {
+            n2 = "0";
+        }
+
+        if (n >= 1) {
+            n1 = "1";
+        } else {
+            n1 = "0";
+        }
+
+        var binary = [n128, n64, n32, n16, n8, n4, n2, n1]
+        var output = "";
+        for (var i = 0; i < binary.length; i++) {
+            if (i <= 3) {
+                output = output + binary[i];
+            } else if (i == 4) {
+                output = output + " " + binary[i];
+            } else {
+                output = output + binary[i];
+            }
+        }
+        document.getElementById('toBinaryOutput').innerHTML = output;
+    }
+};
+
+var partitions = function() {
+    var num = document.getElementById('partitionsValue').value || key.round(key.random(100));
+    
+    var output;
+    if (((num % 1) !== 0) || (num <= 0)) {
+        document.getElementById('partitionsOutput').innerHTML = "This number cannot have partitions";
+    } else {
+        var part1 = 4 * num * Math.sqrt(3);
+        var part2 = Math.PI * Math.sqrt((2 * num) / 3);
+        output = (1 / part1) * Math.exp(part2);
+
+        document.getElementById('partitionsOutput').innerHTML = num + " has " + key.round(output) + " partitions";
+    }
 };
