@@ -380,7 +380,7 @@ var toBinary = function() {
             n1 = "0";
         }
 
-        var binary = [n128, n64, n32, n16, n8, n4, n2, n1]
+        var binary = [n128, n64, n32, n16, n8, n4, n2, n1];
         var output = "";
         for (var i = 0; i < binary.length; i++) {
             if (i <= 3) {
@@ -397,7 +397,7 @@ var toBinary = function() {
 
 var partitions = function() {
     var num = document.getElementById('partitionsValue').value || key.round(key.random(100));
-    
+
     var output;
     if (((num % 1) !== 0) || (num <= 0)) {
         document.getElementById('partitionsOutput').innerHTML = "This number cannot have partitions";
@@ -408,4 +408,123 @@ var partitions = function() {
 
         document.getElementById('partitionsOutput').innerHTML = num + " has " + key.round(output) + " partitions";
     }
+};
+
+var factorableQuadratic = function() {
+    var plusOrMinus = function(a) {
+        if (a >= 0) {
+            return "+ " + a;
+        } else {
+            return "- " + Math.abs(a);
+        }
+    };
+    var xValue4Quadratic = function(a) {
+        if (a == 1) {
+            return "+ x";
+        } else if (a == -1) {
+            return "- x";
+        } else {
+            return plusOrMinus(a) + "x";
+        }
+    };
+    var xValue4Factored = function(a) {
+        if (a == 1) {
+            return "x";
+        } else if (a == -1) {
+            return "-x";
+        } else {
+            return a + "x";
+        }
+    };
+
+    var a = 0;
+    while (a === 0) {
+        a = key.round(key.random(5, -5));
+    }
+
+    var b = 0;
+    while (b === 0) {
+        b = key.round(key.random(15, -15));
+    }
+
+    var c = 0;
+    while (c === 0) {
+        c = key.round(key.random(5, -5));
+    }
+
+    var d = 0;
+    while (d === 0) {
+        d = key.round(key.random(15, -15));
+    }
+
+    var aX = xValue4Factored(a);
+    var bX = plusOrMinus(b);
+    var cX = xValue4Factored(c);
+    var dX = plusOrMinus(d);
+
+    var factored = "(" + aX + " " + bX + ")(" + cX + " " + dX + ")";
+
+    var ac = a * c;
+    var adbc = xValue4Quadratic((a * d) + (b * c));
+    var bd = plusOrMinus(b * d);
+
+    var quadratic = ac + "x² " + adbc + " " + bd;
+
+    document.getElementById('factorableOutput').innerHTML = quadratic + " to " + factored;
+};
+
+var medianIQR = function() {
+    var isDecimal = function(a) {
+        if ((a % i) === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    var randomArrayLength = document.getElementById('IQRLength').value || key.round(key.random(15, 10));
+    var randomArrayMax = document.getElementById('IQRMax').value || key.round(key.random(15, 10));
+
+    var array = [];
+    for (var i = 0; i < key.round(randomArrayLength, "down"); i++) {
+        array.push(key.round(key.random(randomArrayMax), "up", 1))
+    }
+    array.sort(key.sortAscending)
+
+    var q1 = key.round(array[key.round(((array.length / 4) - 1), "up")], "nearest", 1);
+    var q3 = key.round(array[key.round((((array.length * 3) / 4) - 1), "up")], "nearest", 1);
+    var iqr = key.round(q3 - q1, "nearest", 1);
+
+    var nthValueInArray = (array.length - 1) / 2;
+
+    var median = 0;
+
+    if (isDecimal(nthValueInArray)) {
+        median = key.round((array[key.round(nthValueInArray, "down")] + array[key.round(nthValueInArray, "up")]) / 2, "nearest", 1);
+    } else {
+        median = key.round(array[nthValueInArray], "nearest", 1);
+    }
+
+    var maxArray = key.round(array[array.length - 1], "nearest", 1);
+    var minArray = key.round(array[0], "nearest", 1);
+
+    var output = "The median is " + median + ", Q1 is " + q1 + ", Q3 is " + q3 + " and the interquartile range is " + iqr + ". The max is " + maxArray + " and the min is " + minArray;
+
+    document.getElementById('IQROutput').innerHTML = output;
+    console.log(array);
+};
+
+var approximateSqrt = function() {
+    //https://www.youtube.com/watch?v=PJHtqMjrStk
+
+    var num = document.getElementById('sqrtOf').value || key.round(key.random(Math.PI * 100));
+
+    var approximate = key.approxSqrt(num);
+
+    var actual = Math.sqrt(num);
+    console.log("Actual value: " + key.round(actual, "nearest", 4));
+
+    var percentOff = key.round((Math.abs(actual - approximate) / actual) * 100, "nearest", 4);
+
+    document.getElementById('approxSqrtOutput').innerHTML = "The approximate square root of " + num + " is " + key.round(approximate, "nearest", 4) + " and it was " + percentOff + "% off the real value";
 };

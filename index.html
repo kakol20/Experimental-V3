@@ -73,6 +73,25 @@
 		<button onclick="partitions()">Number of Partitions</button>
 		<div id="partitionsOutput"></div> <br>
 
+		<!-- Generates a random factorable, quadratic formula -->
+		<button onclick="factorableQuadratic()">Factorable Quadratic</button>
+		<div id="factorableOutput"></div> <br>
+
+		<!-- Calculates the median, the other quartiles and the interquartile range -->
+		<form>
+			Length: <input type="number" id="IQRLength"> <br>
+			Max: <input type="number" id="IQRMax">
+		</form>
+		<button onclick="medianIQR()">Quartiles and IQR</button>
+		<div id="IQROutput"></div> <br>
+
+		<!-- A written method of finding the approximate square root -->
+		<form>
+			Value: <input type="number" id="sqrtOf">
+		</form>
+		<button onclick="approximateSqrt()">Approximate Square Root</button>
+		<div id="approxSqrtOutput"></div> <br>
+
 		<!-- Other stuff -->
 		<button onclick="reload()">Reload Page</button>
 		<a href="https://twitter.com/the_banana_guy_" target="_blank">
