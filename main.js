@@ -204,55 +204,42 @@ var timeUntil = function() {
         return !isNaN(a.getTime());
     };
 
-    var futureDate = new Date();
+    var date = document.getElementById('timeUntilDate').value || "random";
+
+    var futureDate = new Date(date);
     var currentDate = new Date();
 
-    while (!isValidDate(futureDate) || (futureDate.getTime() <= currentDate.getTime())) {
-        var date = document.getElementById('timeUntilDate').value;
+    if (!isValidDate(futureDate) || (futureDate.getTime() <= currentDate.getTime())) {
+        var tempDate = new Date();
 
-        var selectDate;
-        if (!isValidDate(futureDate) || (futureDate.getTime() <= currentDate.getTime())) {
-            selectDate = "random";
-        } else {
-            selectDate = date;
+        var month = tempDate.getMonth() + 1;
+        if (month <= 9) {
+            month = "0" + month;
         }
 
-        if (selectDate == "random") {
-            var tempDate = new Date();
-
-            var month = tempDate.getMonth() + 1;
-            if (month <= 9) {
-                month = "0" + month;
-            }
-
-            var days = tempDate.getDate();
-            if (days <= 9) {
-                days = "0" + days;
-            }
-
-            var year = tempDate.getFullYear() + 1;
-
-            var hours = tempDate.getHours();
-            if (hours <= 9) {
-                hours = "0" + hours;
-            }
-
-            var minutes = tempDate.getMinutes();
-            if (minutes <= 9) {
-                minutes = "0" + minutes;
-            }
-
-            var tempDate1 = month + " " + days + ", " + year + " " + hours + ":" + minutes;
-            tempDate1 = new Date(tempDate1);
-
-            var randomisedDate = key.random(tempDate1.getTime(), currentDate.getTime());
-
-            futureDate = new Date(randomisedDate);
-        } else {
-            futureDate = new Date(date);
+        var days = tempDate.getDate();
+        if (days <= 9) {
+            days = "0" + days;
         }
 
-        currentDate = new Date();
+        var year = tempDate.getFullYear() + 1;
+
+        var hours = tempDate.getHours();
+        if (hours <= 9) {
+            hours = "0" + hours;
+        }
+
+        var minutes = tempDate.getMinutes();
+        if (minutes <= 9) {
+            minutes = "0" + minutes;
+        }
+
+        var tempDate1 = month + " " + days + ", " + year + " " + hours + ":" + minutes;
+        tempDate1 = new Date(tempDate1);
+
+        var randomisedDate = key.random(tempDate1.getTime(), currentDate.getTime());
+
+        futureDate = new Date(randomisedDate);
     }
 
     currentDate = new Date();
