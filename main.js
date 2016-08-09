@@ -608,7 +608,7 @@ var averages = function() {
 
     var max = Math.abs(document.getElementById('avgMax').value) || key.random(Math.PI * 10, 10);
     var min = Math.abs(document.getElementById('avgMin').value) || key.random(max, 1);
-    var length = Math.abs(document.getElementById('avgLengt').value) || key.random(Math.PI * 7.5, 5);
+    var length = Math.abs(document.getElementById('avgLength').value) || key.random(Math.PI * 7.5, 5);
 
     //Max and Min must not be the same values
     while (min == max) {
