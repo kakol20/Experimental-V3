@@ -1,0 +1,35 @@
+/*
+http://www.htmlbasix.com/stylesheet.shtml
+https://www.fontsquirrel.com/fonts/neris
+*/
+
+body {
+    font-family: 'nerissemibold';
+    color: #ffecdb;
+    background-color: #965173;
+    text-align: center;
+    vertical-align: middle;
+}
+h1 {
+    text-decoration: underline;
+}
+div {
+    font-size: 18px;
+}
+button {
+    font-size: 14px;
+}
+form {
+    font-size: 18px;
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'nerissemibold';
+    src: url('Neris-SemiBold-webfont.eot');
+    src: url('Neris-SemiBold-webfont.eot?#iefix') format('embedded-opentype'), 
+         url('Neris-SemiBold-webfont.woff') format('woff'), 
+         url('Neris-SemiBold-webfont.ttf') format('truetype'), 
+         url('Neris-SemiBold-webfont.svg#nerissemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
