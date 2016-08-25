@@ -1,14 +1,15 @@
 /*
 http://www.htmlbasix.com/stylesheet.shtml
-https://www.fontsquirrel.com/fonts/neris
+https://www.fontsquirrel.com
 */
-
 body {
-    font-family: 'nerissemibold';
+    font-family: 'open_sansregular';
     color: #ffecdb;
     background-color: #965173;
     text-align: center;
     vertical-align: middle;
+    margin: 3px;
+    padding: 3px;
 }
 h1 {
     text-decoration: underline;
@@ -20,15 +21,19 @@ button {
     font-size: 14px;
 }
 form {
+    font-weight: bold;
     font-size: 18px;
 }
 @font-face {
-    font-family: 'nerissemibold';
-    src: url('Neris-SemiBold-webfont.eot');
-    src: url('Neris-SemiBold-webfont.eot?#iefix') format('embedded-opentype'), 
-         url('Neris-SemiBold-webfont.woff') format('woff'), 
-         url('Neris-SemiBold-webfont.ttf') format('truetype'), 
-         url('Neris-SemiBold-webfont.svg#nerissemibold') format('svg');
+    font-family: 'open_sansregular';
+    src: url('OpenSans-Regular-webfont.eot');
+    src: url('OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OpenSans-Regular-webfont.woff') format('woff'),
+         url('OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
     font-weight: normal;
     font-style: normal;
+}
+a {
+    text-decoration:none
 }
