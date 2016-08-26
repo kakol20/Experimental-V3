@@ -15,14 +15,15 @@ h1 {
     text-decoration: underline;
 }
 div {
-    font-size: 18px;
+    /*
+    Nothing
+    */
 }
 button {
-    font-size: 14px;
+    font-size: 87%;
 }
 form {
     font-weight: bold;
-    font-size: 18px;
 }
 @font-face {
     font-family: 'open_sansregular';
