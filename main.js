@@ -543,14 +543,14 @@ var normalDistribution = function() {
         return d;
     };
 
-    var mean = document.getElementById('ndfMean').value || key.random(Math.PI * 100);
+    var mean = document.getElementById('ndfMean').value || key.random(Math.PI * 10, Math.PI * (-10));
 
     var sd;
     if ((mean > 0) || (mean < 0)) {
         //Standard Deviation cannot be a negative number
         sd = Math.abs(document.getElementById('ndfSD').value) || key.random(Math.abs(mean) / 10);
     } else {
-        sd = Math.ans(document.getElementById('ndfSD').value) || 1;
+        sd = Math.abs(document.getElementById('ndfSD').value) || 1;
     }
 
     var val = document.getElementById('ndfValue').value || key.random(mean + (sd * 4), mean - (sd * 4));
