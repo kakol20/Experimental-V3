@@ -141,12 +141,12 @@ var key = (function() {
 
                 fromNumber: function(a) {
                     if (isNaN(Number(a)) || (a === null) || (a === Number.POSITIVE_INFINITY)) {
-                        console.log("The argument is not valid <br>");
-                        throw "The argument is not valid <br>";
+                        console.log("The argument is not valid");
+                        throw "The argument is not valid";
                     }
                     if (a < 0) {
-                        console.log("Can't represent negative numbers now <br>");
-                        throw "Can't represent negative numbers now <br>";
+                        console.log("Can't represent negative numbers now");
+                        throw "Can't represent negative numbers now";
                     }
                     var b;
                     var c = Math.floor(a);
