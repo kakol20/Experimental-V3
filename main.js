@@ -1,3 +1,42 @@
+/*
+Notes:
+
+Use parseInt("Text") to turn into number:
+    var a = "18";
+    var b = paresInt(a) + 2;
+
+    result of b: 20
+
+Use var.split(',') to turn into list:
+    var a = "a,b,c,d,e,f,g";
+    var b = n.split(',');
+
+    result of b: [a,b,c,d,e,f,g];
+
+Use "<br>" to split lines in div:
+    var a = "a" + "<br>";
+    var b = "b" + "<br>";
+    var c = "c";
+    document.getElementById('main').innerHTML = a + b + c;
+
+    result Output:
+        a
+        b
+        c
+
+Use number.toString(16) to convert decimal to hex:
+    var a = 69;
+    var b a.toString(16);
+
+    result of b: 45;
+
+Use paresInt(hex, 16) to convert hex to decimal:
+    var a = 45;
+    var b = parseInt(a, 16);
+
+    result of b: 69;
+*/
+
 //Key functions
 var key = (function() {
     return {
@@ -93,7 +132,45 @@ var key = (function() {
             }
             return [c, d];
             //c = actual values, d = dupe count
-        }
+        },
+
+        base64: (function() {
+            //http://stackoverflow.com/questions/6213227/fastest-way-to-convert-a-number-to-radix-64-in-javascript
+            return {
+                base: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/",
+
+                fromNumber: function(a) {
+                    if (isNaN(Number(a)) || (a === null) || (a === Number.POSITIVE_INFINITY)) {
+                        console.log("The argument is not valid");
+                        throw "The argument is not valid";
+                    }
+                    if (a < 0) {
+                        return "Negative of: " + key.base64.fromNumber(Math.abs(a));
+                    }
+                    var b;
+                    var c = Math.floor(a);
+                    var d = "";
+                    while (true) {
+                        b = c % 64;
+                        d = base64.base.charAt(b) + d;
+                        c = Math.floor(c / 64);
+                        if (c == 0) {
+                            break;
+                        }
+                    }
+                    return d;
+                },
+
+                toNumber: function(a) {
+                    var b = 0;
+                    var c = a.split("");
+                    for (var i = 0; i < c.length; i++) {
+                        b = (b * 64) + base64.base.indexOf(c[i]);
+                    }
+                    return b;
+                }
+            };
+        })(),
     };
 })();
 
