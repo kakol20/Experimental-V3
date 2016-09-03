@@ -12,4 +12,4 @@ Try this if that link doesn't work:
 [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow%20%40The Banana Guy)](https://twitter.com/the_banana_guy_)
 
 #Info
-A test branch was created to test code, once all fixes had been done, will merge with master
+Deleted test branch for now
