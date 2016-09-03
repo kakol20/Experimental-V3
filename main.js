@@ -145,7 +145,8 @@ var key = (function() {
                         throw "The argument is not valid";
                     }
                     if (a < 0) {
-                        return "Negative of: " + key.base64.fromNumber(Math.abs(a));
+                        console.log("Can't represent negative numbers now");
+                        throw "Can't represent negative numbers now";
                     }
                     var b;
                     var c = Math.floor(a);
