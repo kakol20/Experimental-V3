@@ -195,6 +195,18 @@ var key = (function() {
                         e = (e * 64) + key.base64.base.indexOf(d[i]);
                     }
                     return e;
+                },
+
+                test: function(a) {
+                    a = key.round(a) || key.round(key.random(Math.PI * 1000));
+                    console.log("Number: " + a);
+                    var b = key.base64.fromNumber(a, "yes");
+                    console.log("Number to Base-64: " + b);
+                    var c = key.base64.toNumber(b);
+                    console.log("Base-64 to Number: " + c);
+                    if (c !== a) {
+                        console.log("Test Failed");
+                    }
                 }
             };
         })(),
