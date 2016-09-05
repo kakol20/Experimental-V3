@@ -36,7 +36,6 @@ Use paresInt(hex, 16) to convert hex to decimal:
 
     result of b: 69;
 */
-
 //Key functions
 var key = (function() {
     return {
@@ -139,14 +138,15 @@ var key = (function() {
             return {
                 base: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/",
 
-                fromNumber: function(a) {
+                fromNumber: function(a, clean) {
+                    clean = clean || "no";
                     if (isNaN(Number(a)) || (a === null) || (a === Number.POSITIVE_INFINITY)) {
                         console.log("The argument is not valid");
-                        throw "The argument is not valid";
+                        return "INVALID";
                     }
                     if (a < 0) {
                         console.log("Can't represent negative numbers now");
-                        throw "Can't represent negative numbers now";
+                        return "INVALID";
                     }
                     var b;
                     var c = Math.floor(a);
@@ -155,23 +155,65 @@ var key = (function() {
                         b = c % 64;
                         d = key.base64.base.charAt(b) + d;
                         c = Math.floor(c / 64);
-                        if (c == 0) {
+                        if (c === 0) {
                             break;
                         }
                     }
-                    return d;
+                    if (clean === "yes") {
+                        var e = d.split("");
+                        e.reverse();
+                        var f = "";
+                        for (var i = 0; i < e.length; i++) {
+                            if (((i + 1) % 4) === 0) {
+                                f = " " + e[i] + f;
+                            } else {
+                                f = e[i] + f;
+                            }
+                        }
+                        return f;
+                    } else {
+                        return d;
+                    }
                 },
 
                 toNumber: function(a) {
-                    var b = 0;
-                    var c = a.split("");
-                    for (var i = 0; i < c.length; i++) {
-                        b = (b * 64) + key.base64.base.indexOf(c[i]);
+                    var b = [];
+                    if (!isNaN(a)) {
+                        var c = a.toString();
+                        b = c.split("");
+                    } else {
+                        b = a.split("");
                     }
-                    return b;
+                    var d = [];
+                    for (var i = 0; i < b.length; i++) {
+                        if (b[i] !== " ") {
+                            d.push(b[i]);
+                        }
+                    }
+                    var e = 0;
+                    for (var i = 0; i < d.length; i++) {
+                        e = (e * 64) + key.base64.base.indexOf(d[i]);
+                    }
+                    return e;
                 }
             };
         })(),
+
+        lineNumber: function() {
+            //http://stackoverflow.com/questions/2343343/how-can-i-determine-the-current-line-number-in-javascript
+            var a = new Error();
+            if (!a.stack) try {
+                throw a;
+            } catch (a) {
+                return 0;
+            }
+            var b = a.stack.toString().split(/\r\n|\n/);
+            var c = /:(\d+):(?:\d+)[^\d]*$/;
+            do {
+                var d = b.shift();
+            } while (!c.exec(d) && b.length);
+            return c.exec(b.shift())[1];
+        }
     };
 })();
 
