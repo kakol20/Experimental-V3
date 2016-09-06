@@ -133,38 +133,40 @@ var key = (function() {
             //c = actual values, d = dupe count
         },
 
+        //http://stackoverflow.com/questions/6213227/fastest-way-to-convert-a-number-to-radix-64-in-javascript
         base64: (function() {
-            //http://stackoverflow.com/questions/6213227/fastest-way-to-convert-a-number-to-radix-64-in-javascript
             return {
                 base: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/",
 
                 fromNumber: function(a, clean) {
                     clean = clean || "no";
                     if (isNaN(Number(a)) || (a === null) || (a === Number.POSITIVE_INFINITY)) {
-                        console.log("The argument is not valid");
-                        return "INVALID";
+                        console.log("The input is not valid");
+                        return null;
                     }
                     if (a < 0) {
                         console.log("Can't represent negative numbers now");
-                        return "INVALID";
+                        return key.base64.fromNumber(Math.abs(a), clean);
                     }
                     var b;
-                    var c = Math.floor(a);
+                    var c = key.round(a, "down");
                     var d = "";
                     while (true) {
                         b = c % 64;
                         d = key.base64.base.charAt(b) + d;
-                        c = Math.floor(c / 64);
+                        c = key.round(c / 64, "down");
                         if (c === 0) {
                             break;
-                        }
+                        } 
                     }
-                    if (clean === "yes") {
+                    if (clean == "yes") {
                         var e = d.split("");
                         e.reverse();
                         var f = "";
                         for (var i = 0; i < e.length; i++) {
-                            if (((i + 1) % 4) === 0) {
+                            if ((i + 1) == e.length) {
+                                f = e[i] + f;
+                            } else if (((i + 1) % 4) === 0) {
                                 f = " " + e[i] + f;
                             } else {
                                 f = e[i] + f;
@@ -184,29 +186,46 @@ var key = (function() {
                     } else {
                         b = a.split("");
                     }
-                    var d = [];
+                    var c = [];
                     for (var i = 0; i < b.length; i++) {
                         if (b[i] !== " ") {
-                            d.push(b[i]);
+                            c.push(b[i]);
                         }
                     }
-                    var e = 0;
-                    for (var i = 0; i < d.length; i++) {
-                        e = (e * 64) + key.base64.base.indexOf(d[i]);
+                    var d = 0;
+                    for (var i = 0; i < c.length; i++) {
+                        d = (d * 64) + key.base64.base.indexOf(c[i]);
                     }
-                    return e;
+                    return d;
                 },
 
                 test: function(a) {
-                    a = key.round(a) || key.round(key.random(Math.PI * 1000));
-                    console.log("Number: " + a);
+                    var numberOutput = function(a) {
+                        var b = a.toString();
+                        var c = b.split("");
+                        c.reverse();
+                        var d = "";
+                        for (var i = 0; i < c.length; i++) {
+                            if ((i + 1) == c.length) {
+                                d = c[i] + d;
+                            } else if (((i + 1) % 3) === 0) {
+                                d = " " + c[i] + d;
+                            } else {
+                                d = c[i] + d;
+                            }
+                        }
+                        return d;
+                    };
+                    a = Math.abs(key.round(a)) || key.round(key.random(key.base64.toNumber("//// ////"), key.base64.toNumber("1000 000")));
+                    console.log("Number: " + numberOutput(a));
                     var b = key.base64.fromNumber(a, "yes");
                     console.log("Number to Base-64: " + b);
                     var c = key.base64.toNumber(b);
-                    console.log("Base-64 to Number: " + c);
+                    console.log("Base-64 to Number: " + numberOutput(c));
                     if (c !== a) {
                         console.log("Test Failed");
                     }
+                    console.log(" ");
                 }
             };
         })(),
