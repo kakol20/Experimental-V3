@@ -157,7 +157,7 @@ var key = (function() {
 
                 fromNumber: function(a, clean) {
                     clean = clean || "no";
-                    a = key.round(a, "down")
+                    a = key.round(a, "down");
                     if (isNaN(Number(a)) || (a === null) || (a === Number.POSITIVE_INFINITY)) {
                         console.log("The input is not valid");
                         return;
@@ -204,17 +204,17 @@ var key = (function() {
                     } else {
                         b = a.split("");
                     }
-                    var c = [];
+                    var d = [];
                     for (var i = 0; i < b.length; i++) {
                         if (b[i] !== " ") {
-                            c.push(b[i]);
+                            d.push(b[i]);
                         }
                     }
-                    var d = 0;
-                    for (var i = 0; i < c.length; i++) {
-                        d = (d * 64) + key.base64.base.indexOf(c[i]);
+                    var e = 0;
+                    for (var i = 0; i < e.length; i++) {
+                        e = (e * 64) + key.base64.base.indexOf(e[i]);
                     }
-                    return d;
+                    return e;
                 },
 
                 test: function(a) {
@@ -629,9 +629,9 @@ var medianIQR = function() {
 
     var array = [];
     for (var i = 0; i < key.round(randomArrayLength, "down"); i++) {
-        array.push(key.round(key.random(randomArrayMax), "up", 1))
+        array.push(key.round(key.random(randomArrayMax), "up", 1));
     }
-    array.sort(key.sortAscending)
+    array.sort(key.sortAscending);
 
     var q1 = key.round(array[key.round(((array.length / 4) - 1), "up")], "nearest", 1);
     var q3 = key.round(array[key.round((((array.length * 3) / 4) - 1), "up")], "nearest", 1);
@@ -719,7 +719,7 @@ var normalDistribution = function() {
 
 var averages = function() {
     var isInt = function(a) {
-        if ((a % 1) == 0) {
+        if ((a % 1) === 0) {
             return true;
         } else {
             return false;
@@ -825,7 +825,7 @@ var morseConvert = function() {
                 var d = "";
                 for (var i = 0; i < c.length; i++) {
                     var e = morseCode.letters.charAt(morseCode.code.indexOf(c[i]));
-                    var d = d + e;
+                    d = d + e;
                 }
                 return d;
             },
@@ -862,7 +862,7 @@ var morseConvert = function() {
         if (isSentence(input)) {
             document.getElementById('morseOutput').innerHTML = morseCode.fromSentence(input);
         } else {
-            document.getElementById('morseOutput').innerHTML = morseCode.toSentence(input)
+            document.getElementById('morseOutput').innerHTML = morseCode.toSentence(input);
         }
     }
 };
