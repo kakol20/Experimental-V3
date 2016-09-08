@@ -133,6 +133,23 @@ var key = (function() {
             //c = actual values, d = dupe count
         },
 
+        numberOutput: function(a) {
+            var b = a.toString();
+            var c = b.split("");
+            c.reverse();
+            var d = "";
+            for (var i = 0; i < c.length; i++) {
+                if ((i + 1) === c.length) {
+                    d = c[i] + d;
+                } else if (((i + 1) % 3) === 0) {
+                    d = " " + c[i] + d;
+                } else {
+                    d = c[i] + d;
+                }
+            }
+            return d;
+        },
+
         //http://stackoverflow.com/questions/6213227/fastest-way-to-convert-a-number-to-radix-64-in-javascript
         base64: (function() {
             return {
@@ -140,16 +157,17 @@ var key = (function() {
 
                 fromNumber: function(a, clean) {
                     clean = clean || "no";
+                    a = key.round(a, "down")
                     if (isNaN(Number(a)) || (a === null) || (a === Number.POSITIVE_INFINITY)) {
                         console.log("The input is not valid");
-                        return null;
+                        return;
                     }
                     if (a < 0) {
                         console.log("Can't represent negative numbers now");
-                        return key.base64.fromNumber(Math.abs(a), clean);
+                        return;
                     }
                     var b;
-                    var c = key.round(a, "down");
+                    var c = a;
                     var d = "";
                     while (true) {
                         b = c % 64;
@@ -157,7 +175,7 @@ var key = (function() {
                         c = key.round(c / 64, "down");
                         if (c === 0) {
                             break;
-                        } 
+                        }
                     }
                     if (clean == "yes") {
                         var e = d.split("");
@@ -166,7 +184,7 @@ var key = (function() {
                         for (var i = 0; i < e.length; i++) {
                             if ((i + 1) == e.length) {
                                 f = e[i] + f;
-                            } else if (((i + 1) % 4) === 0) {
+                            } else if (((i + 1) % 2) === 0) {
                                 f = " " + e[i] + f;
                             } else {
                                 f = e[i] + f;
@@ -200,33 +218,17 @@ var key = (function() {
                 },
 
                 test: function(a) {
-                    var numberOutput = function(a) {
-                        var b = a.toString();
-                        var c = b.split("");
-                        c.reverse();
-                        var d = "";
-                        for (var i = 0; i < c.length; i++) {
-                            if ((i + 1) == c.length) {
-                                d = c[i] + d;
-                            } else if (((i + 1) % 3) === 0) {
-                                d = " " + c[i] + d;
-                            } else {
-                                d = c[i] + d;
-                            }
-                        }
-                        return d;
-                    };
-                    a = Math.abs(key.round(a)) || key.round(key.random(key.base64.toNumber("//// ////"), key.base64.toNumber("1000 000")));
-                    console.log("Number: " + numberOutput(a));
+                    a = key.round(Math.abs(a), "down") || key.round(key.random(key.base64.toNumber("// //"), key.base64.toNumber(1000)));
+                    console.log("Number           : " + key.numberOutput(a));
                     var b = key.base64.fromNumber(a, "yes");
                     console.log("Number to Base-64: " + b);
                     var c = key.base64.toNumber(b);
-                    console.log("Base-64 to Number: " + numberOutput(c));
+                    console.log("Base-64 to Number: " + key.numberOutput(c));
                     if (c !== a) {
                         console.log("Test Failed");
                     }
                     console.log(" ");
-                }
+                } 
             };
         })(),
 
