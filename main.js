@@ -1,18 +1,18 @@
 /*
-Notes:
+-----NOTES-----
 
 Use parseInt("Text") to turn into number:
     var a = "18";
-    var b = paresInt(a) + 2;
+    var b = parseInt(a) + 2;
 
     result of b: 20
-
+    
 Use var.split(',') to turn into list:
     var a = "a,b,c,d,e,f,g";
-    var b = n.split(',');
+    var b = a.split(',');
 
     result of b: [a,b,c,d,e,f,g];
-
+    
 Use "<br>" to split lines in div:
     var a = "a" + "<br>";
     var b = "b" + "<br>";
@@ -30,11 +30,17 @@ Use number.toString(16) to convert decimal to hex:
 
     result of b: 45;
 
-Use paresInt(hex, 16) to convert hex to decimal:
+Use parseInt(hex, 16) to convert hex to decimal:
     var a = 45;
     var b = parseInt(a, 16);
 
     result of b: 69;
+
+Use array.reverse() to reverse list:
+    var a = [2,3,1];
+    a.reverse();
+
+    result of a: [1,3,2];
 */
 //Key functions
 var key = (function() {
