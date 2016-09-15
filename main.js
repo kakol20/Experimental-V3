@@ -851,9 +851,9 @@ var morseConvert = function() {
         };
     })();
 
-    var input = document.getElementById('morseInput').value || "empty";
+    var input = document.getElementById('morseInput').value || "";
 
-    if (input == "empty") {
+    if ((input == " ") || (input == "")) {
         document.getElementById('morseOutput').innerHTML = "You must input something";
     } else {
         var isSentence = function(a) {
