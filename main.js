@@ -1,46 +1,69 @@
 /*
------NOTES-----
+Notes: {
+    Use parseInt("Text") to turn into number:
+        var a = "18";
+        var b = parseInt(a) + 2;
 
-Use parseInt("Text") to turn into number:
-    var a = "18";
-    var b = parseInt(a) + 2;
+        result of b: 20
+        
+    Use var.split(',') to turn into list:
+        var a = "a,b,c,d,e,f,g";
+        var b = n.split(',');
 
-    result of b: 20
+        result of b: [a,b,c,d,e,f,g];
+        
+    Use "<br>" to split lines in div:
+        var a = "a" + "<br>";
+        var b = "b" + "<br>";
+        var c = "c";
+        document.getElementById('main').innerHTML = a + b + c;
+
+        result Output:
+            a
+            b
+            c
+
+    Use number.toString(16) to convert decimal to hex:
+        var a = 69;
+        var b a.toString(16);
+
+        result of b: 45;
+
+    Use parseInt(hex, 16) to convert hex to decimal:
+        var a = 45;
+        var b = parseInt(a, 16);
+
+        result of b: 69;
+
+    Use array.reverse() to reverse list:
+        var a = [2,3,1];
+        a.reverse();
+
+        result of a: [1,3,2];
+
+    Use n.toPrecision(x) to round number in x significant figures:
+        var a = 3.14159265;
+        var b = a.toPrecision(4);
+
+        result of b: 3.142;
     
-Use var.split(',') to turn into list:
-    var a = "a,b,c,d,e,f,g";
-    var b = a.split(',');
+    Standard Index Form:
+        a * 10^b
+        a - Coefficient
+        b - Exponent
+        var c = 0.0054;
+        var exponent = key.round(Math.log(c) / Math.log(10), "down");
+        var coefficient = c * Math.pow(10, -1 * exponent);
 
-    result of b: [a,b,c,d,e,f,g];
-    
-Use "<br>" to split lines in div:
-    var a = "a" + "<br>";
-    var b = "b" + "<br>";
-    var c = "c";
-    document.getElementById('main').innerHTML = a + b + c;
+        result of exponent: -3
+                  coefficient: 5.4 
 
-    result Output:
-        a
-        b
-        c
+    Use Number(string) to turn into a number
+        var a = "3.14159265";
+        var b = Number(a);
 
-Use number.toString(16) to convert decimal to hex:
-    var a = 69;
-    var b a.toString(16);
-
-    result of b: 45;
-
-Use parseInt(hex, 16) to convert hex to decimal:
-    var a = 45;
-    var b = parseInt(a, 16);
-
-    result of b: 69;
-
-Use array.reverse() to reverse list:
-    var a = [2,3,1];
-    a.reverse();
-
-    result of a: [1,3,2];
+        result of b: 3.14159265
+}
 */
 //Key functions
 var key = (function() {
@@ -288,6 +311,7 @@ var getPrimes = function() {
     console.log("Min: " + min);
     console.log("Max: " + max);
     console.log("Length: " + primes.length);
+    console.log(" ");
 };
 
 var convertWeek = function() {
@@ -337,6 +361,7 @@ var convertWeek = function() {
         output = output + converted[i];
     }
     document.getElementById('convertedWeek').innerHTML = output;
+    console.log(" ");
 };
 
 var timeUntil = function() {
@@ -453,6 +478,7 @@ var timeUntil = function() {
     }
 
     document.getElementById('timeUntilOutput').innerHTML = output;
+    console.log(" ");
 };
 
 var toBinary = function() {
@@ -541,6 +567,7 @@ var toBinary = function() {
         }
         document.getElementById('toBinaryOutput').innerHTML = output;
     }
+    console.log(" ");
 };
 
 var partitions = function() {
@@ -556,6 +583,7 @@ var partitions = function() {
 
         document.getElementById('partitionsOutput').innerHTML = num + " has " + key.round(output) + " partitions";
     }
+    console.log(" ");
 };
 
 var factorableQuadratic = function() {
@@ -619,6 +647,7 @@ var factorableQuadratic = function() {
     var quadratic = ac + "x² " + adbc + " " + bd;
 
     document.getElementById('factorableOutput').innerHTML = quadratic + " to " + factored;
+    console.log(" ");
 };
 
 var medianIQR = function() {
@@ -656,10 +685,11 @@ var medianIQR = function() {
     var maxArray = key.round(array[array.length - 1], "nearest", 1);
     var minArray = key.round(array[0], "nearest", 1);
 
-    var output = "The median is " + median + ", Q1 is " + q1 + ", Q3 is " + q3 + " and the interquartile range is " + iqr + ". The max is " + maxArray + " and the min is " + minArray;
+    var output = "The median is " + median + "<br>Q1 is " + q1 + "<br>Q3 is " + q3 + "<br>The interquartile range is " + iqr + "<br>The max is " + maxArray + "<br>The min is " + minArray;
 
     document.getElementById('IQROutput').innerHTML = output;
     console.log(array);
+    console.log(" ");
 };
 
 var approximateSqrt = function() {
@@ -675,6 +705,7 @@ var approximateSqrt = function() {
     var percentOff = key.round((Math.abs(actual - approximate) / actual) * 100, "nearest", 4);
 
     document.getElementById('approxSqrtOutput').innerHTML = "The approximate square root of " + num + " is " + key.round(approximate, "nearest", 4) + " and it was " + percentOff + "% off the real value";
+    console.log(" ");
 };
 
 var normalDistribution = function() {
@@ -721,6 +752,7 @@ var normalDistribution = function() {
 
     document.getElementById('ndfOutput').innerHTML = "X ~ N(" + mean + ", " + key.round(sd, "nearest", 2) + "²) --> P(X < " + val + ") = " + result;
     console.log("P(Z < " + key.round((val - mean) / sd, "nearest", 2) + ")");
+    console.log(" ");
 };
 
 var averages = function() {
@@ -788,7 +820,8 @@ var averages = function() {
     }
     console.log(list);
 
-    document.getElementById('avgOutput').innerHTML = "Mode: " + mode(list) + ". Median: " + median(list) + ". Mean: " + mean(list);
+    document.getElementById('avgOutput').innerHTML = "Mode: " + mode(list) + "<br>Median: " + median(list) + "<br>Mean: " + mean(list);
+    console.log(" ");
 };
 
 var morseConvert = function() {
@@ -871,6 +904,55 @@ var morseConvert = function() {
             document.getElementById('morseOutput').innerHTML = morseCode.toSentence(input);
         }
     }
+    console.log(" ");
+};
+
+var iteration = function() {
+    var iterationFormula = function(a) {
+        return (((2 * a) - 5) / Math.pow(a, 2)) + 3;
+    };
+
+    var formula = function(a) {
+        return Math.pow(a, 3) - (3 * Math.pow(a, 2)) - (2 * a) + 5;
+    };
+
+    var start = Number(document.getElementById('iterationStart').value) || Number(key.random(Math.PI * 10, 1).toPrecision(3));
+    var sigFigures = Number(document.getElementById('iterationSigFigures').value) || key.round(key.random(4, 2));
+
+    var output = "";
+    if (isNaN(Number(start)) || isNaN(Number(sigFigures)) || (start == null) || (sigFigures == null) || (start == Number.POSITIVE_INFINITY) || (sigFigures == Number.POSITIVE_INFINITY)) {
+        output = output + "One of the inputs is invalid";
+    } else if (sigFigures < 0) {
+        output = output + "Significant Figure can't be negative";
+    } else {
+        output = output + "Equation: x³ - 3x² - 2x + 5 = 0<br>";
+
+        var x = [start];
+        output = output + "x0 = " + x[0] + "<br>";
+        while (true) {
+            x.push(Number(iterationFormula(x[x.length - 1]).toPrecision(sigFigures + 1)));
+            if (x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) {
+                break;
+            }
+        }
+        console.log(x);
+
+        var rootFoo = Number(x[x.length - 1].toPrecision(sigFigures));
+        var iterations = x.length - 1;
+        var exponent = key.round(Math.log(rootFoo) / Math.log(10), "down");
+        var coefficient = key.round(rootFoo / Math.pow(10, exponent), "nearest", sigFigures - 1);
+
+        var low = Number((key.round(coefficient - (0.5 * Math.pow(10, -1 * (sigFigures - 1))), "nearest", sigFigures) * Math.pow(10, exponent)).toPrecision(sigFigures + 1));
+        var lowValue = Number(formula(low).toPrecision(4));
+
+        var high = Number((key.round(coefficient + (0.5 * Math.pow(10, -1 * (sigFigures - 1))), "nearest", sigFigures) * Math.pow(10, exponent)).toPrecision(sigFigures + 1));
+        var highValue = Number(formula(high).toPrecision(4));
+
+        output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(" + low + ") = " + lowValue + "<br>f(" + high + ") = " + highValue;
+    }
+
+    document.getElementById('iterationOutput').innerHTML = output;
+    console.log(" ");
 };
 
 /*
