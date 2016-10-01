@@ -260,22 +260,6 @@ var key = (function() {
                 } 
             };
         })(),
-
-        lineNumber: function() {
-            //http://stackoverflow.com/questions/2343343/how-can-i-determine-the-current-line-number-in-javascript
-            var a = new Error();
-            if (!a.stack) try {
-                throw a;
-            } catch (a) {
-                return 0;
-            }
-            var b = a.stack.toString().split(/\r\n|\n/);
-            var c = /:(\d+):(?:\d+)[^\d]*$/;
-            do {
-                var d = b.shift();
-            } while (!c.exec(d) && b.length);
-            return c.exec(b.shift())[1];
-        }
     };
 })();
 
@@ -886,7 +870,7 @@ var morseConvert = function() {
 
     var input = document.getElementById('morseInput').value || "";
 
-    if ((input == " ") || (input == "")) {
+    if ((input === " ") || (input === "")) {
         document.getElementById('morseOutput').innerHTML = "You must input something";
     } else {
         var isSentence = function(a) {
@@ -920,7 +904,7 @@ var iteration = function() {
     var sigFigures = Number(document.getElementById('iterationSigFigures').value) || key.round(key.random(4, 2));
 
     var output = "";
-    if (isNaN(Number(start)) || isNaN(Number(sigFigures)) || (start == null) || (sigFigures == null) || (start == Number.POSITIVE_INFINITY) || (sigFigures == Number.POSITIVE_INFINITY)) {
+    if (isNaN(Number(start)) || isNaN(Number(sigFigures)) || (start === null) || (sigFigures === null) || (start == Number.POSITIVE_INFINITY) || (sigFigures == Number.POSITIVE_INFINITY)) {
         output = output + "One of the inputs is invalid";
     } else if (sigFigures < 0) {
         output = output + "Significant Figure can't be negative";
