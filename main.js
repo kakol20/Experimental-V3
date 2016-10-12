@@ -63,6 +63,11 @@ Notes: {
         var b = Number(a);
 
         result of b: 3.14159265
+    Use array.splice(index, 1) to delete array[index]
+        var a = [1, 2, 3];
+        var b = a.splice(1, 1);
+
+        result of b: [1, 3];
 }
 */
 //Key functions
@@ -761,16 +766,19 @@ var averages = function() {
         return b[0][b[1].indexOf(c[0])];
     };
     var median = function(a) {
-        var b = [];
-        for (var i = 0; i < a.length; i++) {
-            b.push(a[i]);
+        var b = a.sort(key.sortAscending);
+        var c = [];
+        for (var i = 0; i < b.length; i++) {
+            c.push(b[i]);
         }
-        b.sort(key.sortAscending);
-        var c = (b.length - 1) / 2;
-        if (isInt(c)) {
-            return b[c];
+        if (c.length == 1) {
+            return c[0];
+        } else if (c.length == 2) {
+            return (c[0] + c[1]) / 2;
         } else {
-            return (b[key.round(c, "down")] + b[key.round(c, "up")]) / 2;
+            c.splice(c.length - 1, 1);
+            c.splice(0, 1);
+            return median(c);
         }
     };
     var mean = function(a) {
