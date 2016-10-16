@@ -957,7 +957,7 @@ TODO List -
     a. None
 }
 2. Monte Carlo PI estimate (If possible) {
-    a. Choose random x and y value
+    a. Choose random x and y value between -10 and 10
     b. Add++ to amount generated
     c. Add++ to amount that is true if it lands in circle - ((Math.pow(x, 2) + Math.pow(y, 2)) == Math.pow(10, 2))
     d. Estimate (generated/circle) * 4
