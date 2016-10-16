@@ -63,6 +63,9 @@ Notes: {
         var b = Number(a);
 
         result of b: 3.14159265
+
+    http://stackoverflow.com/questions/34599303/javascript-sort-list-of-lists-by-sublist-second-entry
+
     Use array.splice(index, 1) to delete array[index]
         var a = [1, 2, 3];
         var b = a.splice(1, 1);
@@ -70,6 +73,7 @@ Notes: {
         result of b: [1, 3];
 }
 */
+
 //Key functions
 var key = (function() {
     return {
