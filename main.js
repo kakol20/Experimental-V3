@@ -249,8 +249,8 @@ var key = (function() {
                         }
                     }
                     var e = 0;
-                    for (var i = 0; i < e.length; i++) {
-                        e = (e * 64) + key.base64.base.indexOf(e[i]);
+                    for (var i = 0; i < d.length; i++) {
+                        e = (e * 64) + key.base64.base.indexOf(d[i]);
                     }
                     return e;
                 },
@@ -980,6 +980,13 @@ var monteCarlo = function() {
 
     document.getElementById('monteCarloOutput').innerHTML = output;
 };
+
+var base64Convert = function() {
+    var random = key.round(key.random(key.base64.toNumber("// //"), key.base64.toNumber(1000)));
+    var n = document.getElementById('base64ConvertNum').value || random;
+    var converted = key.base64.fromNumber(n, "yes");
+    document.getElementById('base64ConvertOutput').innerHTML = "Number: " + n + "<br>Base-64: " + converted;
+}
 
 /*
 TODO List - 

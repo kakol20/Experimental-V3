@@ -26,8 +26,7 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="96x96" href="icon/favicon-96x96.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
-
-
+		
 		<!-- CSS stuff -->
 		<link rel="stylesheet" href="css/normalize.css" type="text/css" charset="utf-8">
 		<link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8">
@@ -134,7 +133,14 @@
 			Number of Repetitions: <input type="number" id="monteCarloRep">
 		</form>
 		<button onclick="monteCarlo()">Monte Carlo Method</button>
-		<div id="monteCarloOutput"></div> <br>	
+		<div id="monteCarloOutput"></div> <br>
+
+		<!-- Number to Base 64 -->
+		<form>
+			Number to Base-64: <input type="number" id="base64ConvertNum">
+		</form>
+		<button onclick="base64Convert()">Convert to Base-64</button>
+		<div id="base64ConvertOutput"></div> <br>
 
 		<!-- Other stuff -->
 		<button onclick="reload()">Reload Page</button>
