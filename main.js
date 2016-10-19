@@ -951,16 +951,41 @@ var iteration = function() {
     console.log(" ");
 };
 
+var monteCarlo = function() {
+    var max = Math.abs(document.getElementById('monteCarloMax').value) || 1;
+    var rep = Math.abs(document.getElementById('monteCarloRep').value) || Number(key.random(5000000, 500000).toPrecision(3));
+
+    var output = "";
+
+    if (isNaN(Number(max)) || isNaN(Number(rep)) || (max === null) || (rep === null) || (max == Number.POSITIVE_INFINITY) || (rep == Number.POSITIVE_INFINITY)) {
+        output = "An input is invalid";
+    } else {
+        var total = 0;
+        var inCircle = 0;
+
+        for (var i = 0; i < rep; i++) {
+            var xValue = key.random(max, max * -1);
+            var yValue = key.random(max, max * -1);
+            if ((Math.pow(xValue, 2) + Math.pow(yValue, 2)) <= Math.pow(max, 2)) {
+                inCircle++;
+                total++;
+            } else {
+                total++;
+            }
+        }
+        var estimate = (inCircle / total) * 4;
+        var percentOff = Number(((Math.abs(estimate - Math.PI) / Math.PI) * 100).toPrecision(4));
+        output = "Total: " + total + "<br>In Circle: " + inCircle + "<br>Estimate: " + Number(estimate.toPrecision(9)) + "<br>Percentage Off: " + percentOff + "%";
+    }
+
+    document.getElementById('monteCarloOutput').innerHTML = output;
+};
+
 /*
 TODO List - 
 1. Enhancement {
     a. None
 }
-2. Monte Carlo PI estimate (If possible) {
-    a. Choose random x and y value between -10 and 10
-    b. Add++ to amount generated
-    c. Add++ to amount that is true if it lands in circle - ((Math.pow(x, 2) + Math.pow(y, 2)) == Math.pow(10, 2))
-    d. Estimate (generated/circle) * 4
-    e. Loop as much as you can
+2. None
 }
 */
