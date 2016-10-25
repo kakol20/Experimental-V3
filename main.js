@@ -269,6 +269,13 @@ var key = (function() {
                 } 
             };
         })(),
+
+        toSigFigures: function(n, sF, r) {
+            r = r || "nearest";
+            var a = key.round(Math.log(n) / Math.log(10, "down"));
+            var b = n * Math.pow(10, -1 * a);
+            return key.round(key.round(b, r, sF - 1) * Math.pow(10, a), "down");
+        },
     };
 })();
 
