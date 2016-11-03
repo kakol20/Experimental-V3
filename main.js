@@ -73,7 +73,6 @@ Notes: {
         result of b: [1, 3];
 }
 */
-
 //Key functions
 var key = (function() {
     return {
@@ -266,7 +265,7 @@ var key = (function() {
                         console.log("Test Failed");
                     }
                     console.log(" ");
-                } 
+                }
             };
         })(),
 
@@ -285,27 +284,7 @@ var reload = function() {
 
 // Runs script when page is loaded or reloaded
 $(function() {
-    var _0xf361 = ["\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2584\u2584\u2584\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\x6C\x6F\x67", "\u2591\u2591\u2591\u2584\u2584\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2580\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2584\u2584\u2584\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2584\u2588\u2588\u2588\u2580\u2580\u2580\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2584\u2584\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2584\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2580\u2580\u2584\u2584\u2584\u2584\u2584\u2591\u2580\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2584\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2580\u2588\u2584\u2580\u2588\u2584\u2591\u2591\u2588\u2591\u2580\u2580\u2580\u2591\u2588\u2591\u2591\u2584\u2584\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2580\u2580\u2591\u2591\u2591\u2588\u2588\u2584\u2588\u2584\u2591\u2591\u2580\u2588\u2591\u2591\u2584\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2584\u2588\u2580\u2591\u2591\u2591\u2584\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2588\u2591\u2588\u2580\u2584\u2584\u2580\u2584\u2580\u2591\u2588\u2580\u2580\u2580\u2588\u2580\u2584\u2584\u2580\u2591\u2591\u2591\u2591\u2591\u2591\u2584\u2591\u2584\u2588", "\u2591\u2591\u2591\u2591\u2591\u2588\u2591\u2588\u2591\u2591\u2580\u2580\u2584\u2584\u2588\u2580\u2591\u2588\u2580\u2580\u2591\u2591\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2580\u2588\u2588\u2591", "\u2591\u2591\u2591\u2591\u2591\u2580\u2588\u2584\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2584\u2580\u2591\u2591\u2591\u2591\u2591\u2591\u2584\u2588\u2588\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2591\u2580\u2588\u2584\u2584\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2584\u2584\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2584\u2580\u2591\u2591\u2588\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2580\u2588\u2588\u2588\u2580\u2580\u2588\u2588\u2588\u2588\u2584\u2588\u2588\u2584\u2584\u2591\u2591\u2584\u2580\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2588\u2584\u2580\u2588\u2588\u2580\u2588\u2588\u2580\u2584\u2588\u2584\u2591\u2580\u2580\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2588\u2588\u2591\u2580\u2588\u2584\u2588\u2591\u2588\u2580\u2591\u2580\u2584\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2588\u2591\u2588\u2584\u2591\u2591\u2580\u2588\u2584\u2584\u2584\u2591\u2591\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2588\u2580\u2588\u2588\u2580\u2580\u2580\u2580\u2591\u2588\u2584\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2580\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2580\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591", "\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x4C\x69\x6B\x65\x20\x41\x20\x53\x69\x72\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"];
-    console[_0xf361[1]](_0xf361[0]);
-    console[_0xf361[1]](_0xf361[2]);
-    console[_0xf361[1]](_0xf361[3]);
-    console[_0xf361[1]](_0xf361[4]);
-    console[_0xf361[1]](_0xf361[5]);
-    console[_0xf361[1]](_0xf361[6]);
-    console[_0xf361[1]](_0xf361[7]);
-    console[_0xf361[1]](_0xf361[8]);
-    console[_0xf361[1]](_0xf361[9]);
-    console[_0xf361[1]](_0xf361[10]);
-    console[_0xf361[1]](_0xf361[11]);
-    console[_0xf361[1]](_0xf361[12]);
-    console[_0xf361[1]](_0xf361[13]);
-    console[_0xf361[1]](_0xf361[14]);
-    console[_0xf361[1]](_0xf361[15]);
-    console[_0xf361[1]](_0xf361[16]);
-    console[_0xf361[1]](_0xf361[17]);
-    console[_0xf361[1]](_0xf361[18]);
-    console[_0xf361[1]](_0xf361[19]);
-    console[_0xf361[1]](_0xf361[20]);
+    console.log("Sᴄʀɪᴘᴛ ʙʏ Kᴀᴋᴏʟ20");
 });
 
 var getPrimes = function() {
@@ -862,7 +841,7 @@ var morseConvert = function() {
                 a = a.toUpperCase();
                 var b = a.split("");
                 var c = [];
-                for (var i = 0; i < b.length; i++) {                        
+                for (var i = 0; i < b.length; i++) {
                     if ((morseCode.letters.indexOf(b[i]) <= -1) && (morseCode.letters.indexOf(b[i - 1]) > 0) && (morseCode.letters.indexOf(b[i + 1]) > 0)) {
                         c.push(" ");
                     } else if (morseCode.letters.indexOf(b[i]) > -1) {
@@ -1018,7 +997,57 @@ var base64Convert = function() {
     var n = document.getElementById('base64ConvertNum').value || random;
     var converted = key.base64.fromNumber(n, "yes");
     document.getElementById('base64ConvertOutput').innerHTML = "Number: " + n + "<br>Base-64: " + converted;
-}
+};
+
+var happyNumbers = function() {
+    var out = function(units, result) {
+        a = "";
+        for (var i = 0; i < units.length; i++) {
+            if (i === 0) {
+                a = units[i] + "² ";
+            } else {
+                a = a + "+ " + units[i] + "² ";
+            }
+        }
+        a = a + "= " + result;
+        return a;
+    };
+    var isHappyNumber = function(num) {
+        var output = '';
+
+        if (((num % 1) !== 0) || isNaN(Number(num)) || (num === null) || (num == Number.POSITIVE_INFINITY)) {
+            return [false, "NaN"];
+        } else {
+            var b = [];
+            var c = Number(num);
+            while (true) {
+                var d = (c.toString()).split('');
+                var e = 0;
+                for (var i = 0; i < d.length; i++) {
+                    e += Math.pow(Number(d[i]), 2);
+                }
+                if (e === 1) {
+                    output = output + out(d, e);
+                    return [true, output];
+                } else if (b.indexOf(e) > -1) {
+                    output = output + out(d, e);
+                    return [false, output];
+                }
+                b.push(e);
+                c = e;
+                output = output + out(d, e) + "<br>";
+            }
+        }
+    };
+
+    var number = key.round(document.getElementById('happyNumbersInput').value) || key.round(key.random(Math.PI * 100, 5));
+
+    if (isHappyNumber(number)[0]) {
+        document.getElementById('happyNumbersOutput').innerHTML = isHappyNumber(number)[1] + "<br>" + number + " is a happy number";
+    } else {
+        document.getElementById('happyNumbersOutput').innerHTML = isHappyNumber(number)[1] + "<br>" + number + " is not a happy number";
+    }
+};
 
 /*
 TODO List - 
