@@ -1009,8 +1009,7 @@ var happyNumbers = function() {
                 a = a + "+ " + units[i] + "² ";
             }
         }
-        a = a + "= " + result;
-        return a;
+        return a + "= " + result;
     };
     var isHappyNumber = function(num) {
         var output = '';
