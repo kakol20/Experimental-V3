@@ -1001,7 +1001,7 @@ var base64Convert = function() {
 
 var happyNumbers = function() {
     var out = function(units, result) {
-        a = "";
+        var a = "";
         for (var i = 0; i < units.length; i++) {
             if (i === 0) {
                 a = units[i] + "² ";
