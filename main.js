@@ -195,7 +195,7 @@ var key = (function() {
                 fromNumber: function(a, clean) {
                     clean = clean || "no";
                     a = key.round(a, "down");
-                    if (isNaN(Number(a)) || (a === null) || (a === Number.POSITIVE_INFINITY)) {
+                    if (!key.isValidNumber(a)) {
                         console.log("The input is not valid");
                         return;
                     }
@@ -274,6 +274,10 @@ var key = (function() {
             var a = key.round(Math.log(n) / Math.log(10, "down"));
             var b = n * Math.pow(10, -1 * a);
             return key.round(key.round(b, r, sF - 1) * Math.pow(10, a), "down");
+        },
+
+        isValidNumber: function(n) {
+            return !(isNaN(Number(n)) || (n === null) || (Number(n) == Number.POSITIVE_INFINITY));
         },
     };
 })();
@@ -927,7 +931,7 @@ var iteration = function() {
     var sigFigures = Number(document.getElementById('iterationSigFigures').value) || key.round(key.random(4, 2));
 
     var output = "";
-    if (isNaN(Number(start)) || isNaN(Number(sigFigures)) || (start === null) || (sigFigures === null) || (start == Number.POSITIVE_INFINITY) || (sigFigures == Number.POSITIVE_INFINITY)) {
+    if (!key.isValidNumber(start) || !key.isValidNumber(sigFigures)) {
         output = output + "One of the inputs is invalid";
     } else if (sigFigures < 0) {
         output = output + "Significant Figure can't be negative";
@@ -968,7 +972,7 @@ var monteCarlo = function() {
 
     var output = "";
 
-    if (isNaN(Number(max)) || isNaN(Number(rep)) || (max === null) || (rep === null) || (max == Number.POSITIVE_INFINITY) || (rep == Number.POSITIVE_INFINITY)) {
+    if (!key.isValidNumber(max) || !key.isValidNumber(rep)) {
         output = "An input is invalid";
     } else {
         var total = 0;
@@ -1014,7 +1018,7 @@ var happyNumbers = function() {
     var isHappyNumber = function(num) {
         var output = '';
 
-        if (((num % 1) !== 0) || isNaN(Number(num)) || (num === null) || (num == Number.POSITIVE_INFINITY)) {
+        if (!key.isValidNumber(num)) {
             return [false, "NaN"];
         } else {
             var b = [];
