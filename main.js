@@ -944,7 +944,7 @@ var iteration = function() {
         return (-1 * (((a + b + c) * Math.pow(x, 2)) + (((a * c) + (b * c) + (a * b)) * x) + (a * b * c))) / Math.pow(x, 2);
     }; ()
 
-    //a. (x+a)(x+b)(x+c) ²³
+    //a. x³ + (a + b + c)x² + (ac + bc + ab)x + abc = 0
     var formula = function(x, a, b, c) {
         return (a + x) * (b + x) * (c + x);
     };
@@ -971,9 +971,8 @@ var iteration = function() {
         output = "Significant Figure can't be a negative number";
     } else {
         output = "Equation: ";
-        if (a < 0) {
-            output = output + "(x - " + Math.abs(a) 
-        }
+        
+        
 
         var x = [start];
         output = output + "<br>x0 = " + x[0] + "<br>";
