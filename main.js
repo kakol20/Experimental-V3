@@ -940,47 +940,118 @@ var morseConvert = function() {
 };
 
 var iteration = function() {
-    var iterationFormula = function(a) {
-        return (((2 * a) - 5) / Math.pow(a, 2)) + 3;
+    //x³ + ax² + bx + c
+    var formula = function(x, a, b, c) {
+        return Math.pow(x, 3) + (a * Math.pow(x, 2)) + (b * x) + c;
     };
 
-    var formula = function(a) {
-        return Math.pow(a, 3) - (3 * Math.pow(a, 2)) - (2 * a) + 5;
-    };
+    var iterationFormula = function(x, a, b, c) {
+        return (-1 * ((a * Math.pow(x, 2)) + (b * x) + c)) / Math.pow(x, 2);
+    }
 
-    var start = Number(document.getElementById('iterationStart').value) || Number(key.random(Math.PI * 10, 1).toPrecision(3));
-    var sigFigures = Number(document.getElementById('iterationSigFigures').value) || key.round(key.random(4, 2));
+    var a = key.round(key.random(5, -5));
+    if (a === 0) {
+        a = key.round(key.random(5, -5));
+    }
+    var b = key.round(key.random(5, -5));
+    if (b === 0) {
+        b = key.round(key.random(5, -5));
+    }
+    var c = key.round(key.random(5, -5));
+    if (c === 0) {
+        c = key.round(key.random(5, -5));
+    }
 
-    var output = "";
-    if (!key.isValidNumber(start) || !key.isValidNumber(sigFigures)) {
-        output = output + "One of the inputs is invalid";
-    } else if (sigFigures < 0) {
-        output = output + "Significant Figure can't be negative";
+    output = "Equation: x³ ";
+    if (a < 0) {
+        if (a  === -1) {
+            output = output + "- x² ";
+        } else {
+            output = output + "- " + Math.abs(a) + "x² ";
+        }
     } else {
-        output = output + "Equation: x³ - 3x² - 2x + 5 = 0<br>";
+        if (a === 1) {
+            output = output + "+ x²";
+        } else {
+            output = output + "+ " + a + "x² ";
+        }
+    }
+    if (b < 0) {
+        if (b === -1) {
+            output = output + "- x ";
+        } else {
+            output = output + "- " + Math.abs(b) + "x ";
+        }
+    } else {
+        if (b === 1) {
+            output = output + "+ x ";
+        } else {
+            output = output + "+ " + b + "x ";
+        }
+    }
+    if (c < 0) {
+        output = output + "- " + Math.abs(c) + "<br>";
+    } else {
+        output = output + "+ " + c + "<br>";
+    }
 
+    var start = parseFloat(document.getElementById('iterationStart').value) || parseFloat(key.random(Math.PI * 10, 1).toPrecision(3));
+    var sigFigures = parseFloat(document.getElementById('iterationSigFigures').value) || key.round(key.random(4, 2));
+    
+    if (!key.isValidNumber(start) || !key.isValidNumber(sigFigures)) {
+        output = "One of the inputs is invalid";
+    } else if (sigFigures < 0) {
+        output = "Significant Figure can't be negative"
+    } else {
         var x = [start];
-        output = output + "x0 = " + x[0] + "<br>";
+        output = output + "x0 = " + start + "<br>"
         while (true) {
-            x.push(Number(iterationFormula(x[x.length - 1]).toPrecision(sigFigures + 1)));
-            if (x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) {
+            x.push(parseFloat(iterationFormula(x[x.length - 1], a, b, c).toPrecision(sigFigures + 1)));
+            if ((x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) || !key.isValidNumber(x[x.length - 1]) || (x.length == 1000)) {
                 break;
             }
         }
-        console.log(x);
+        console.log("Significant Figure: " + sigFigures);
+        console.log(x)
 
-        var rootFoo = Number(x[x.length - 1].toPrecision(sigFigures));
-        var iterations = x.length - 1;
-        var exponent = key.round(Math.log(rootFoo) / Math.log(10), "down");
-        var coefficient = key.round(rootFoo / Math.pow(10, exponent), "nearest", sigFigures - 1);
+        if (x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) {
+            var rootFoo = parseFloat(x[x.length - 1].toPrecision(sigFigures));
+            var iterations = x.length - 1;
+            var exponent = key.round(Math.log(Math.abs(rootFoo)) / Math.log(10), "down");
+            var coefficient = key.round(rootFoo / Math.pow(10, exponent), "nearest", sigFigures - 1);
 
-        var low = Number((key.round(coefficient - (0.5 * Math.pow(10, -1 * (sigFigures - 1))), "nearest", sigFigures) * Math.pow(10, exponent)).toPrecision(sigFigures + 1));
-        var lowValue = Number(formula(low).toPrecision(4));
+            var low = key.round(((rootFoo / Math.pow(10, exponent)) * Math.pow(10, sigFigures)) - 5) / Math.pow(10, sigFigures);
+            var lowValue = formula(low, a, b, c).toPrecision(4);
 
-        var high = Number((key.round(coefficient + (0.5 * Math.pow(10, -1 * (sigFigures - 1))), "nearest", sigFigures) * Math.pow(10, exponent)).toPrecision(sigFigures + 1));
-        var highValue = Number(formula(high).toPrecision(4));
+            var high = key.round(((rootFoo / Math.pow(10, exponent)) * Math.pow(10, sigFigures)) + 5) / Math.pow(10, sigFigures);
+            var highValue = formula(high, a, b, c).toPrecision(4);
 
-        output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(" + low + ") = " + lowValue + "<br>f(" + high + ") = " + highValue;
+            output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(" + low + ") = " + lowValue + "<br>f(" + high + ") = " + highValue;
+        } else {
+            var x1 = [];
+            for (var i = 0; i < x.length; i++) {
+                x1.push(x[i].toPrecision(sigFigures));
+            }
+            var count = key.countDupes(x1);
+            console.log(count);
+            
+            var possible = function() {
+                for (var i = 0; i < count[1].length; i++) {
+                    if (count[1][i] > 1) {
+                        return false;
+                    } else if (!key.isValidNumber(count[0][i])) {
+                        return false;
+                    }
+                }
+                return true;
+            }; 
+
+            if (possible()) {
+                output = output + "It will take too long to do";
+            } else {
+                output = output + "Not possible to do with " + sigFigures + " significant figures";
+            }
+        }
     }
 
     document.getElementById('iterationOutput').innerHTML = output;
@@ -1079,6 +1150,6 @@ TODO List -
     a. None
 }
 2. Iterations {
-    a. ax^3 + bx^2 + cx + d = 0
+    a. Add option to input a, b, & c
 }
 */
