@@ -82,9 +82,13 @@
 <div id="morseOutput"></div> <br>
 
 <!-- Numerical Methods: Iterations -->
+<div>(x + a)(x + b)(x + c)</div>
 <form>
 	Starting Number: <input type="number" id="iterationStart"> <br>
-	Significant Figures: <input type="number" id="iterationSigFigures">
+	Significant Figures: <input type="number" id="iterationSigFigures"> <br>
+	a: <input type="number" id="iterationA"> <br>
+	b: <input type="number" id="iterationB"> <br>
+	c: <input type="number" id="iterationC">
 </form>
 <button onclick="iteration()">Iterations</button>
 <div id="iterationOutput"></div> <br>	
@@ -127,7 +131,7 @@
 <form> Value: <input type="number" id="ndfValue"> <br> Mean: <input type="number" id="ndfMean"> <br> Standard Deviation: <input type="number" id="ndfSD"> </form> <button onclick="normalDistribution()">Normal Distribution Function</button> <div id="ndfOutput"></div> <br>
 <form> Max: <input type="number" id="avgMax"> <br> Min: <input type="number" id="avgMin"> <br> Array Length: <input type="number" id="avgLength"> </form> <button onclick="averages()">Mode, Median and Mean</button> <div id="avgOutput"></div> <br>
 <div align="center"> <textarea rows="4" cols="40" placeholder="Type your message here, either normal letters, numbers, and punctuation or Morse code using '.' for a dot, '-' for a dash, separating letters by spaces and words by '/'. Also, separate Morse code letters with space" id="morseInput"></textarea> </div> <button onclick="morseConvert()">Convert Sentence or Morse Code</button> <div id="morseOutput"></div> <br>
-<form> Starting Number: <input type="number" id="iterationStart"> <br> Significant Figures: <input type="number" id="iterationSigFigures"> </form> <button onclick="iteration()">Iterations</button> <div id="iterationOutput"></div> <br>	
+<div>(x + a)(x + b)(x + c)</div> <form> Starting Number: <input type="number" id="iterationStart"> <br> Significant Figures: <input type="number" id="iterationSigFigures"> <br> a: <input type="number" id="iterationA"> <br> b: <input type="number" id="iterationB"> <br> c: <input type="number" id="iterationC"> </form> <button onclick="iteration()">Iterations</button> <div id="iterationOutput"></div> <br>	
 <form> Max: <input type="number" id="monteCarloMax"> <br> Number of Repetitions: <input type="number" id="monteCarloRep"> </form> <button onclick="monteCarlo()">Monte Carlo Method</button> <div id="monteCarloOutput"></div> <br>
 <form> Number to Base-64: <input type="number" id="base64ConvertNum"> </form> <button onclick="base64Convert()">Convert to Base-64</button> <div id="base64ConvertOutput"></div> <br>
 <form> Number: <input type="number" id="happyNumbersInput"> </form> <button onclick="happyNumbers()">Is it a Happy Number?</button> <div id="happyNumbersOutput"></div> <br>

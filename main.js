@@ -271,9 +271,9 @@ var key = (function() {
 
         toSigFigures: function(n, sF, r) {
             r = r || "nearest";
-            var a = key.round(Math.log(n) / Math.log(10, "down"));
-            var b = n * Math.pow(10, -1 * a);
-            return key.round(key.round(b, r, sF - 1) * Math.pow(10, a), "down");
+            var a = n.toPrecision(sF);
+            //console.log(Number(a))
+            return Number(a);
         },
 
         isValidNumber: function(n) {
@@ -299,17 +299,17 @@ var body = function() {
     document.write("<form> Value: <input type=\"number\" id=\"ndfValue\"> <br> Mean: <input type=\"number\" id=\"ndfMean\"> <br> Standard Deviation: <input type=\"number\" id=\"ndfSD\"> <\/form> <button onclick=\"normalDistribution()\">Normal Distribution Function<\/button> <div id=\"ndfOutput\"><\/div> <br>");
     document.write("<form> Max: <input type=\"number\" id=\"avgMax\"> <br> Min: <input type=\"number\" id=\"avgMin\"> <br> Array Length: <input type=\"number\" id=\"avgLength\"> <\/form> <button onclick=\"averages()\">Mode, Median and Mean<\/button> <div id=\"avgOutput\"><\/div> <br>");
     document.write("<div align=\"center\"> <textarea rows=\"4\" cols=\"40\" placeholder=\"Type your message here, either normal letters, numbers, and punctuation or Morse code using '.' for a dot, '-' for a dash, separating letters by spaces and words by '\/'. Also, separate Morse code letters with space\" id=\"morseInput\"><\/textarea> <\/div> <button onclick=\"morseConvert()\">Convert Sentence or Morse Code<\/button> <div id=\"morseOutput\"><\/div> <br>");
-    document.write("<form> Starting Number: <input type=\"number\" id=\"iterationStart\"> <br> Significant Figures: <input type=\"number\" id=\"iterationSigFigures\"> <\/form> <button onclick=\"iteration()\">Iterations<\/button> <div id=\"iterationOutput\"><\/div> <br>   ");
+    document.write("<div>ax³ + bx² + cx + d = 0<\/div> <form> Starting Number: <input type=\"number\" id=\"iterationStart\"> <br> Significant Figures: <input type=\"number\" id=\"iterationSigFigures\"> <br> a: <input type=\"number\" id=\"iterationA\"> <br> b: <input type=\"number\" id=\"iterationB\"> <br> c: <input type=\"number\" id=\"iterationC\"> <br> d: <input type=\"number\" id=\"iterationD\"> <\/form> <button onclick=\"iteration()\">Iterations<\/button> <div id=\"iterationOutput\"><\/div> <br>    ");
     document.write("<form> Max: <input type=\"number\" id=\"monteCarloMax\"> <br> Number of Repetitions: <input type=\"number\" id=\"monteCarloRep\"> <\/form> <button onclick=\"monteCarlo()\">Monte Carlo Method<\/button> <div id=\"monteCarloOutput\"><\/div> <br>");
     document.write("<form> Number to Base-64: <input type=\"number\" id=\"base64ConvertNum\"> <\/form> <button onclick=\"base64Convert()\">Convert to Base-64<\/button> <div id=\"base64ConvertOutput\"><\/div> <br>");
     document.write("<form> Number: <input type=\"number\" id=\"happyNumbersInput\"> <\/form> <button onclick=\"happyNumbers()\">Is it a Happy Number?<\/button> <div id=\"happyNumbersOutput\"><\/div> <br>");
     document.write("<button onclick=\"reload()\">Reload Page<\/button>");
-
 };
 
 // Runs script when page is loaded or reloaded
 $(function() {
     console.log("Sᴄʀɪᴘᴛ ʙʏ Kᴀᴋᴏʟ20");
+    key.toSigFigures(Math.PI, 3);
 });
 
 var getPrimes = function() {
@@ -940,27 +940,53 @@ var morseConvert = function() {
 };
 
 var iteration = function() {
-    var iterationFormula = function(a) {
-        return (((2 * a) - 5) / Math.pow(a, 2)) + 3;
+    var iterationFormula = function(x, a, b,c) {
+        return (-1 * (((a + b + c) * Math.pow(x, 2)) + (((a * c) + (b * c) + (a * b)) * x) + (a * b * c))) / Math.pow(x, 2);
+    }; ()
+
+    //a. (x+a)(x+b)(x+c) ²³
+    var formula = function(x, a, b, c) {
+        return (a + x) * (b + x) * (c + x);
     };
 
-    var formula = function(a) {
-        return Math.pow(a, 3) - (3 * Math.pow(a, 2)) - (2 * a) + 5;
-    };
-
-    var start = Number(document.getElementById('iterationStart').value) || Number(key.random(Math.PI * 10, 1).toPrecision(3));
+    var start = Number(document.getElementById('iterationStart').value) || key.round(key.random(5,1));
     var sigFigures = Number(document.getElementById('iterationSigFigures').value) || key.round(key.random(4, 2));
+    var a = Number(document.getElementById('iterationA').value) || key.round(key.random(5, -5));
+    while (a === 0) {
+        a = key.round(key.random(5, -5));
+    }
+    var b = Number(document.getElementById('iterationB').value) || key.round(key.random(5, -5));
+    while (b === 0) {
+        b = key.round(key.random(5, -5));
+    }
+    var c = Number(document.getElementById('iterationC').value) || key.round(key.random(5, -5));
+    while (c === 0) {
+        c = key.round(key.random(5, -5));
+    }
 
     var output = "";
-    if (!key.isValidNumber(start) || !key.isValidNumber(sigFigures)) {
-        output = output + "One of the inputs is invalid";
+    if (!key.isValidNumber(start) || !key.isValidNumber(sigFigures) || !key.isValidNumber(a) || !key.isValidNumber(b) || !key.isValidNumber(c) || !key.isValidNumber(d)) {
+        output = "One of the inputs is invalid";
     } else if (sigFigures < 0) {
-        output = output + "Significant Figure can't be negative";
+        output = "Significant Figure can't be a negative number";
     } else {
-        output = output + "Equation: x³ - 3x² - 2x + 5 = 0<br>";
+        output = "Equation: ";
+        if (a < 0) {
+            output = output + "(x - " + Math.abs(a) 
+        }
 
         var x = [start];
-        output = output + "x0 = " + x[0] + "<br>";
+        output = output + "<br>x0 = " + x[0] + "<br>";
+        console.log(output)
+        while (true) {
+            x.push(key.toSigFigures(iterationFormula(x[x.length - 1], a, b, c, d), sigFigures + 1));
+            if (x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) {
+                break;
+            }
+        }
+        console.log(x);
+    }
+    /*
         while (true) {
             x.push(Number(iterationFormula(x[x.length - 1]).toPrecision(sigFigures + 1)));
             if (x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) {
@@ -982,6 +1008,7 @@ var iteration = function() {
 
         output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(" + low + ") = " + lowValue + "<br>f(" + high + ") = " + highValue;
     }
+    */
 
     document.getElementById('iterationOutput').innerHTML = output;
     console.log(" ");
