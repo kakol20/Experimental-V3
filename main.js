@@ -953,15 +953,16 @@ var iteration = function() {
         return (-1 * ((a * Math.pow(x, 2)) + (b * x) + c)) / Math.pow(x, 2);
     }
 
-    var a = key.round(key.random(5, -5));
+    var a = parseFloat(document.getElementById('iterationA').value) || key.round(key.random(5, -5));
+    console.log(a);
     if (a === 0) {
         a = key.round(key.random(5, -5));
     }
-    var b = key.round(key.random(5, -5));
+    var b = parseFloat(document.getElementById('iterationB').value) || key.round(key.random(5, -5));
     if (b === 0) {
         b = key.round(key.random(5, -5));
     }
-    var c = key.round(key.random(5, -5));
+    var c = parseFloat(document.getElementById('iterationC').value) || key.round(key.random(5, -5));
     if (c === 0) {
         c = key.round(key.random(5, -5));
     }
@@ -1025,10 +1026,10 @@ var iteration = function() {
             var coefficient = key.round(rootFoo / Math.pow(10, exponent), "nearest", sigFigures - 1);
 
             var low = key.round(((rootFoo / Math.pow(10, exponent)) * Math.pow(10, sigFigures)) - 5) / Math.pow(10, sigFigures);
-            var lowValue = formula(low, a, b, c).toPrecision(4);
+            var lowValue = (formula(low, a, b, c)).toPrecision(4);
 
             var high = key.round(((rootFoo / Math.pow(10, exponent)) * Math.pow(10, sigFigures)) + 5) / Math.pow(10, sigFigures);
-            var highValue = formula(high, a, b, c).toPrecision(4);
+            var highValue = (formula(high, a, b, c)).toPrecision(4);
 
             output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(" + low + ") = " + lowValue + "<br>f(" + high + ") = " + highValue;
         } else {
