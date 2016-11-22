@@ -269,11 +269,28 @@ var key = (function() {
             };
         })(),
 
+        tenToThePowerOf: function(a) {
+            var b = 1;
+            if (a < 0) {
+                for (var i = 0; i < Math.abs(a); i++) {
+                    b = b / 10;
+                }
+                return b;
+            } else {
+                for (var i = 0; i < a; i++) {
+                    b = b * 10;
+                }
+                return b;
+            }
+        },
+
         toSigFigures: function(n, sF, r) {
             r = r || "nearest";
-            var a = key.round(Math.log(n) / Math.log(10, "down"));
-            var b = n * Math.pow(10, -1 * a);
-            return key.round(key.round(b, r, sF - 1) * Math.pow(10, a), "down");
+            var a = key.round(Math.log(Math.abs(n)) / Math.log(10), "down");
+            var b = n / key.tenToThePowerOf(a);
+            var c = key.round(b, r, sF - 1);
+            var d = c * key.tenToThePowerOf(a);
+            return d;
         },
 
         isValidNumber: function(n) {
@@ -288,22 +305,9 @@ var reload = function() {
 
 // http://www.accessify.com/tools-and-wizards/developer-tools/html-javascript-convertor
 var body = function() {
-    document.write("<form> Max: <input type=\"number\" id=\"primesMax\"> <br> Min: <input type=\"number\" id=\"primesMin\"> <\/form> <button onclick=\"getPrimes()\">Get Primes<\/button> <div id=\"primes\"><\/div> <br>");
-    document.write("<form> Decimal Week to Convert: <input type=\"number\" id=\"convertWeek\"> <\/form> <button onclick=\"convertWeek()\">Convert Decimal Week<\/button> <div id=\"convertedWeek\"><\/div> <br>");
-    document.write("<form> Future Date (like this - August 08, 2017 15:19:45): <input type=\"text\" id=\"timeUntilDate\"> <\/form> <button onclick=\"timeUntil()\">Time Until Date<\/button> <div id=\"timeUntilOutput\"><\/div> <br>");
-    document.write("<form> Denary Value: <input type=\"number\" id=\"toBinaryValue\"> <\/form> <button onclick=\"toBinary()\">Denary to Binary<\/button> <div id=\"toBinaryOutput\"><\/div> <br>");
-    document.write("<form> Value: <input type=\"number\" id=\"partitionsValue\"> <\/form> <button onclick=\"partitions()\">Number of Partitions<\/button> <div id=\"partitionsOutput\"><\/div> <br>");
-    document.write("<button onclick=\"factorableQuadratic()\">Factorable Quadratic<\/button> <div id=\"factorableOutput\"><\/div> <br>");
-    document.write("<form> Length: <input type=\"number\" id=\"IQRLength\"> <br> Max: <input type=\"number\" id=\"IQRMax\"> <\/form> <button onclick=\"medianIQR()\">Quartiles and IQR<\/button> <div id=\"IQROutput\"><\/div> <br>");
-    document.write("<form> Value: <input type=\"number\" id=\"sqrtOf\"> <\/form> <button onclick=\"approximateSqrt()\">Approximate Square Root<\/button> <div id=\"approxSqrtOutput\"><\/div> <br>");
-    document.write("<form> Value: <input type=\"number\" id=\"ndfValue\"> <br> Mean: <input type=\"number\" id=\"ndfMean\"> <br> Standard Deviation: <input type=\"number\" id=\"ndfSD\"> <\/form> <button onclick=\"normalDistribution()\">Normal Distribution Function<\/button> <div id=\"ndfOutput\"><\/div> <br>");
-    document.write("<form> Max: <input type=\"number\" id=\"avgMax\"> <br> Min: <input type=\"number\" id=\"avgMin\"> <br> Array Length: <input type=\"number\" id=\"avgLength\"> <\/form> <button onclick=\"averages()\">Mode, Median and Mean<\/button> <div id=\"avgOutput\"><\/div> <br>");
-    document.write("<div align=\"center\"> <textarea rows=\"4\" cols=\"40\" placeholder=\"Type your message here, either normal letters, numbers, and punctuation or Morse code using '.' for a dot, '-' for a dash, separating letters by spaces and words by '\/'. Also, separate Morse code letters with space\" id=\"morseInput\"><\/textarea> <\/div> <button onclick=\"morseConvert()\">Convert Sentence or Morse Code<\/button> <div id=\"morseOutput\"><\/div> <br>");
-    document.write("<form> Starting Number: <input type=\"number\" id=\"iterationStart\"> <br> Significant Figures: <input type=\"number\" id=\"iterationSigFigures\"> <\/form> <button onclick=\"iteration()\">Iterations<\/button> <div id=\"iterationOutput\"><\/div> <br>   ");
-    document.write("<form> Max: <input type=\"number\" id=\"monteCarloMax\"> <br> Number of Repetitions: <input type=\"number\" id=\"monteCarloRep\"> <\/form> <button onclick=\"monteCarlo()\">Monte Carlo Method<\/button> <div id=\"monteCarloOutput\"><\/div> <br>");
-    document.write("<form> Number to Base-64: <input type=\"number\" id=\"base64ConvertNum\"> <\/form> <button onclick=\"base64Convert()\">Convert to Base-64<\/button> <div id=\"base64ConvertOutput\"><\/div> <br>");
-    document.write("<form> Number: <input type=\"number\" id=\"happyNumbersInput\"> <\/form> <button onclick=\"happyNumbers()\">Is it a Happy Number?<\/button> <div id=\"happyNumbersOutput\"><\/div> <br>");
-    document.write("<button onclick=\"reload()\">Reload Page<\/button>");
+    var body = "<form> Max: <input type=\"number\" id=\"primesMax\" min=\"2\"> <br>Min: <input type=\"number\" id=\"primesMin\" min=\"1\"> <\/form> <button onclick=\"getPrimes()\">Get Primes<\/button> <div id=\"primes\"><\/div><br><form> Decimal Week to Convert: <input type=\"number\" id=\"convertWeek\"> <\/form> <button onclick=\"convertWeek()\">Convert Decimal Week<\/button> <div id=\"convertedWeek\"><\/div><br><div align=\"center\"> <textarea rows=\"4\" cols=\"40\" placeholder=\"Type the date like this: November 22, 2017 19:23:45\" id=\"timeUntilDate\"><\/textarea> <\/div><button onclick=\"timeUntil()\">Time Until Date<\/button> <div id=\"timeUntilOutput\"><\/div><br><form> Denary Value: <input type=\"number\" id=\"toBinaryValue\" min=\"1\"> <\/form> <button onclick=\"toBinary()\">Denary to Binary<\/button> <div id=\"toBinaryOutput\"><\/div><br><form> Value: <input type=\"number\" id=\"partitionsValue\" min=\"1\"> <\/form> <button onclick=\"partitions()\">Number of Partitions<\/button> <div id=\"partitionsOutput\"><\/div><br><button onclick=\"factorableQuadratic()\">Factorable Quadratic<\/button> <div id=\"factorableOutput\"><\/div><br><form> Length: <input type=\"number\" id=\"IQRLength\" min=\"1\"> <br>Max: <input type=\"number\" id=\"IQRMax\"> <\/form> <button onclick=\"medianIQR()\">Quartiles and IQR<\/button> <div id=\"IQROutput\"><\/div><br><form> Value: <input type=\"number\" id=\"sqrtOf\"> <\/form> <button onclick=\"approximateSqrt()\">Approximate Square Root<\/button> <div id=\"approxSqrtOutput\"><\/div><br><form> Value: <input type=\"number\" id=\"ndfValue\"> <br>Mean: <input type=\"number\" id=\"ndfMean\"> <br>Standard Deviation: <input type=\"number\" id=\"ndfSD\"> <\/form> <button onclick=\"normalDistribution()\">Normal Distribution Function<\/button> <div id=\"ndfOutput\"><\/div><br><form> Max: <input type=\"number\" id=\"avgMax\"> <br>Min: <input type=\"number\" id=\"avgMin\"> <br>Array Length: <input type=\"number\" id=\"avgLength\" min=\"1\"> <\/form> <button onclick=\"averages()\">Mode, Median and Mean<\/button> <div id=\"avgOutput\"><\/div><br><div align=\"center\"> <textarea rows=\"4\" cols=\"40\" placeholder=\"Type your message here, either normal letters, numbers, and punctuation or Morse code using '.' for a dot, '-' for a dash, separating letters by spaces and words by '\/'. Also, separate Morse code letters with space\" id=\"morseInput\"><\/textarea> <\/div><button onclick=\"morseConvert()\">Convert Sentence or Morse Code<\/button> <div id=\"morseOutput\"><\/div><br><div class=\"bold\">x³ + ax² + bx + c<\/div><form> Starting Number: <input type=\"number\" id=\"iterationStart\"> <br>Significant Figures: <input type=\"number\" id=\"iterationSigFigures\" min=\"1\"> <br>a: <input type=\"number\" id=\"iterationA\"> <br>b: <input type=\"number\" id=\"iterationB\"> <br>c: <input type=\"number\" id=\"iterationC\"> <\/form> <button onclick=\"iteration()\">Iterations<\/button> <div id=\"iterationOutput\"><\/div><br><form> Max: <input type=\"number\" id=\"monteCarloMax\" min=\"1\"> <br>Number of Repetitions: <input type=\"number\" id=\"monteCarloRep\" min=\"1\"> <\/form> <button onclick=\"monteCarlo()\">Monte Carlo Method<\/button> <div id=\"monteCarloOutput\"><\/div><br><form> Number to Base-64: <input type=\"number\" id=\"base64ConvertNum\" min=\"1\"> <\/form> <button onclick=\"base64Convert()\">Convert to Base-64<\/button> <div id=\"base64ConvertOutput\"><\/div><br><form> Number: <input type=\"number\" id=\"happyNumbersInput\" min=\"1\"> <\/form> <button onclick=\"happyNumbers()\">Is it a Happy Number?<\/button> <div id=\"happyNumbersOutput\"><\/div><br><button onclick=\"reload()\">Reload Page<\/button>";
+
+    document.write(body);
 
 };
 
@@ -1032,8 +1036,16 @@ var iteration = function() {
             for (var i = 0; i < x.length; i++) {
                 x1.push(x[i].toPrecision(sigFigures));
             }
+
             var count = key.countDupes(x1);
-            console.log(count);
+            var count1 = [];
+            for (var i = 0; i < count[0].length; i++) {
+                count1.push([count[0][i], count[1][i]])
+            }
+            console.log(count1.sort(function(a, b) {
+                return b[1] - a[1];  
+            }));
+
             
             var possible = function() {
                 for (var i = 0; i < count[1].length; i++) {
