@@ -953,16 +953,15 @@ var iteration = function() {
         return (-1 * ((a * Math.pow(x, 2)) + (b * x) + c)) / Math.pow(x, 2);
     }
 
-    var a = parseFloat(document.getElementById('iterationA').value) || key.round(key.random(5, -5));
-    console.log(a);
+    var a = parseFloat(document.getElementById('iterationA').value) || key.round(key.random(10, -10));
     if (a === 0) {
         a = key.round(key.random(5, -5));
     }
-    var b = parseFloat(document.getElementById('iterationB').value) || key.round(key.random(5, -5));
+    var b = parseFloat(document.getElementById('iterationB').value) || key.round(key.random(10, -10));
     if (b === 0) {
         b = key.round(key.random(5, -5));
     }
-    var c = parseFloat(document.getElementById('iterationC').value) || key.round(key.random(5, -5));
+    var c = parseFloat(document.getElementById('iterationC').value) || key.round(key.random(10, -10));
     if (c === 0) {
         c = key.round(key.random(5, -5));
     }
@@ -1001,7 +1000,7 @@ var iteration = function() {
     }
 
     var start = parseFloat(document.getElementById('iterationStart').value) || parseFloat(key.random(Math.PI * 10, 1).toPrecision(3));
-    var sigFigures = parseFloat(document.getElementById('iterationSigFigures').value) || key.round(key.random(4, 2));
+    var sigFigures = key.round(parseFloat(document.getElementById('iterationSigFigures').value)) || key.round(key.random(4, 2));
     
     if (!key.isValidNumber(start) || !key.isValidNumber(sigFigures)) {
         output = "One of the inputs is invalid";
@@ -1031,7 +1030,13 @@ var iteration = function() {
             var high = key.round(((rootFoo / Math.pow(10, exponent)) * Math.pow(10, sigFigures)) + 5) / Math.pow(10, sigFigures);
             var highValue = (formula(high, a, b, c)).toPrecision(4);
 
-            output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(" + low + ") = " + lowValue + "<br>f(" + high + ") = " + highValue;
+            if (iterations > 1) {
+                output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(";
+            } else {
+                output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iteration<br>f("; 
+            }
+
+            output = output + low + ") = " + lowValue + "<br>f(" + rootFoo + ") = " + formula(rootFoo, a, b, c).toPrecision(4) + "<br>f(" + high + ") = " + highValue;
         } else {
             var x1 = [];
             for (var i = 0; i < x.length; i++) {
