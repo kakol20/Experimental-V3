@@ -48,7 +48,7 @@ a {
     height: 120px;
     z-index: 2;
 }
-.titleText {
+.header div {
     color: #FF301E;
     font-size: 40px;
     font-weight: bold;
@@ -58,7 +58,7 @@ a {
     text-transform: uppercase;
     display: table; 
 }
-.titleText p {
+.header div p {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
@@ -84,6 +84,16 @@ button {
     width: auto;
     height: auto;
 }
+button div {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+button div p {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
 button:hover, button:focus {
     border-width: 1.333px;
     border-color: rgb( 123, 123, 123 );
@@ -108,5 +118,5 @@ button:active {
 }
 
 textarea {
-    width: 99%;
+    width: 95%;
 }
