@@ -11,11 +11,6 @@ html, body {
     padding: 0;
     margin: 0;
 }
-div {
-    /*
-    Nothing
-    */
-}
 button {
     font-size: 87%;
 }
@@ -70,6 +65,7 @@ a {
     left: 0px;
     top: 125px;
     width: 100%;
+    height: auto;
     z-index: 3;
 }
 
@@ -86,8 +82,8 @@ button {
 }
 button div {
     display: table;
-    height: 100%;
     width: 100%;
+    height: 100%;
 }
 button div p {
     display: table-cell;
