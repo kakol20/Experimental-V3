@@ -939,6 +939,7 @@ var morseConvert = function() {
 
 var iteration = function() {
     //x³ + ax² + bx + c
+    /*
     var formula = function(x, a, b, c) {
         return Math.pow(x, 3) + (a * Math.pow(x, 2)) + (b * x) + c;
     };
@@ -1065,6 +1066,36 @@ var iteration = function() {
             }
         }
     }
+    */
+    var output = "";
+
+    var formula = function(x, a,b,c,d) {
+        return (a * Math.pow(x, 3)) + (b * Math.pow(x, 2)) + (c * x) + d;
+    };
+    var derivative = function(x, a,b,c) {
+        return (3 * a * Math.pow(x, 2)) + (2 * b * x) + c;
+    };
+    var newtonMethod = function(x, a,b,c,d) {
+        return x - (formula(x, a,b,c,d) / derivative(x, a,b,c));
+    };
+
+    var a = parseFloat(document.getElementById('iterationA').value) || key.round(key.random(10, 1));
+    while (a === 0) {
+        a = key.round(key.random(10, 1));
+    }
+    var b = parseFloat(document.getElementById('iterationB').value) || key.round(key.random(10, -10));
+    while (b === 0) {
+        b = key.round(key.random(10, -10));
+    }
+    var c = parseFloat(document.getElementById('iterationC').value) || key.round(key.random(10, -10));
+    while (c === 0) {
+        c = key.round(key.random(10, -10));
+    }
+    var d = parseFloat(document.getElementById('iterationD').value) || key.round(key.random(10, -10));
+    while (d === 0) {
+        d = key.round(key.random(10, -10));
+    }
+    // Replacing old method with Newton's Method
 
     document.getElementById('iterationOutput').innerHTML = output;
     console.log(" ");
@@ -1159,7 +1190,10 @@ var happyNumbers = function() {
 /*
 TODO List - 
 1. Enhancement {
-    a. None
+    a. iteration() {
+        i. Replace old iteration method with Newton's Method
+       ii. Improve it along the way
+    }
 }
 2. None
 */
