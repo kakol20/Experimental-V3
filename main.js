@@ -937,7 +937,7 @@ var morseConvert = function() {
     console.log(" ");
 };
 
-var iteration = function() {
+var iteration = function() { //https://en.wikipedia.org/wiki/Newton's_method
     //x³ + ax² + bx + c
     /*
     var formula = function(x, a, b, c) {
