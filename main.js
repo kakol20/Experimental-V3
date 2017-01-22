@@ -1032,7 +1032,20 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
         var iterations = x.length - 1;
         
         if (x.length >= 1000) {
-            output = output + "It will take too long";
+            var temp = key.countDupes(x);
+            var temp2 = [];
+            for (var i = 0; i < temp[0].length; i++) {
+                temp2.push([temp[0][i], temp[1][i]]);
+            }
+            temp2.sort(function(a,b) {
+                return b[1] - a[1];
+            });
+
+            if ((temp2[0][1] > 1) && (temp2[1][1] > 1)) {
+                output = output + "It is impossible to do with the given start number<b>";
+            } else {
+                output = output + "It will take too long";
+            }
         } else {
             output = output + "Root: " + key.round(x[x.length - 1], "nearest", decimalPlaces) + "<br>";
             if (iterations > 1) {
