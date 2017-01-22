@@ -937,165 +937,130 @@ var morseConvert = function() {
     console.log(" ");
 };
 
-var iteration = function() { //https://en.wikipedia.org/wiki/Newton's_method
-    //x³ + ax² + bx + c
-    /*
-    var formula = function(x, a, b, c) {
-        return Math.pow(x, 3) + (a * Math.pow(x, 2)) + (b * x) + c;
-    };
-
-    var iterationFormula = function(x, a, b, c) {
-        return (-1 * ((a * Math.pow(x, 2)) + (b * x) + c)) / Math.pow(x, 2);
-    }
-
-    var a = parseFloat(document.getElementById('iterationA').value) || key.round(key.random(10, -10));
-    if (a === 0) {
-        a = key.round(key.random(5, -5));
-    }
-    var b = parseFloat(document.getElementById('iterationB').value) || key.round(key.random(10, -10));
-    if (b === 0) {
-        b = key.round(key.random(5, -5));
-    }
-    var c = parseFloat(document.getElementById('iterationC').value) || key.round(key.random(10, -10));
-    if (c === 0) {
-        c = key.round(key.random(5, -5));
-    }
-
-    output = "Equation: x³ ";
-    if (a < 0) {
-        if (a  === -1) {
-            output = output + "- x² ";
-        } else {
-            output = output + "- " + Math.abs(a) + "x² ";
-        }
-    } else {
-        if (a === 1) {
-            output = output + "+ x²";
-        } else {
-            output = output + "+ " + a + "x² ";
-        }
-    }
-    if (b < 0) {
-        if (b === -1) {
-            output = output + "- x ";
-        } else {
-            output = output + "- " + Math.abs(b) + "x ";
-        }
-    } else {
-        if (b === 1) {
-            output = output + "+ x ";
-        } else {
-            output = output + "+ " + b + "x ";
-        }
-    }
-    if (c < 0) {
-        output = output + "- " + Math.abs(c) + "<br>";
-    } else {
-        output = output + "+ " + c + "<br>";
-    }
-
-    var start = parseFloat(document.getElementById('iterationStart').value) || parseFloat(key.random(Math.PI * 10, 1).toPrecision(3));
-    var sigFigures = key.round(parseFloat(document.getElementById('iterationSigFigures').value)) || key.round(key.random(4, 2));
-    
-    if (!key.isValidNumber(start) || !key.isValidNumber(sigFigures)) {
-        output = "One of the inputs is invalid";
-    } else if (sigFigures < 0) {
-        output = "Significant Figure can't be negative"
-    } else {
-        var x = [start];
-        output = output + "x0 = " + start + "<br>"
-        while (true) {
-            x.push(parseFloat(iterationFormula(x[x.length - 1], a, b, c).toPrecision(sigFigures + 1)));
-            if ((x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) || !key.isValidNumber(x[x.length - 1]) || (x.length == 1000)) {
-                break;
-            }
-        }
-        console.log("Significant Figure: " + sigFigures);
-        console.log(x)
-
-        if (x[x.length - 1].toPrecision(sigFigures) == x[x.length - 2].toPrecision(sigFigures)) {
-            var rootFoo = parseFloat(x[x.length - 1].toPrecision(sigFigures));
-            var iterations = x.length - 1;
-            var exponent = key.round(Math.log(Math.abs(rootFoo)) / Math.log(10), "down");
-            var coefficient = key.round(rootFoo / Math.pow(10, exponent), "nearest", sigFigures - 1);
-
-            var low = key.round(((rootFoo / Math.pow(10, exponent)) * Math.pow(10, sigFigures)) - 5) / Math.pow(10, sigFigures);
-            var lowValue = (formula(low, a, b, c)).toPrecision(4);
-
-            var high = key.round(((rootFoo / Math.pow(10, exponent)) * Math.pow(10, sigFigures)) + 5) / Math.pow(10, sigFigures);
-            var highValue = (formula(high, a, b, c)).toPrecision(4);
-
-            if (iterations > 1) {
-                output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iterations<br>f(";
-            } else {
-                output = output + "Root: " + rootFoo + "<br>Took " + iterations + " iteration<br>f("; 
-            }
-
-            output = output + low + ") = " + lowValue + "<br>f(" + rootFoo + ") = " + formula(rootFoo, a, b, c).toPrecision(4) + "<br>f(" + high + ") = " + highValue;
-        } else {
-            var x1 = [];
-            for (var i = 0; i < x.length; i++) {
-                x1.push(x[i].toPrecision(sigFigures));
-            }
-
-            var count = key.countDupes(x1);
-            var count1 = [];
-            for (var i = 0; i < count[0].length; i++) {
-                count1.push([count[0][i], count[1][i]])
-            }
-            console.log(count1.sort(function(a, b) {
-                return b[1] - a[1];  
-            }));
-
-            
-            var possible = function() {
-                for (var i = 0; i < count[1].length; i++) {
-                    if (count[1][i] > 1) {
-                        return false;
-                    } else if (!key.isValidNumber(count[0][i])) {
-                        return false;
-                    }
-                }
-                return true;
-            }; 
-
-            if (possible()) {
-                output = output + "It will take too long to do";
-            } else {
-                output = output + "Not possible to do with " + sigFigures + " significant figures";
-            }
-        }
-    }
-    */
+var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
+    // ax³ + bx² + cx + d
     var output = "";
 
     var formula = function(x, a,b,c,d) {
         return (a * Math.pow(x, 3)) + (b * Math.pow(x, 2)) + (c * x) + d;
     };
-    var derivative = function(x, a,b,c) {
+    var derivative = function(x, a,b,c,d) {
+        d = d || 0;
         return (3 * a * Math.pow(x, 2)) + (2 * b * x) + c;
     };
     var newtonMethod = function(x, a,b,c,d) {
         return x - (formula(x, a,b,c,d) / derivative(x, a,b,c));
     };
 
-    var a = parseFloat(document.getElementById('iterationA').value) || key.round(key.random(10, 1));
+    var a = key.round(parseFloat(document.getElementById('iterationA').value)) || key.round(key.random(10, -10));
     while (a === 0) {
-        a = key.round(key.random(10, 1));
+        a = key.round(key.random(10, -10));
     }
-    var b = parseFloat(document.getElementById('iterationB').value) || key.round(key.random(10, -10));
+    var b = key.round(parseFloat(document.getElementById('iterationB').value)) || key.round(key.random(10, -10));
     while (b === 0) {
         b = key.round(key.random(10, -10));
     }
-    var c = parseFloat(document.getElementById('iterationC').value) || key.round(key.random(10, -10));
+    var c = key.round(parseFloat(document.getElementById('iterationC').value)) || key.round(key.random(10, -10));
     while (c === 0) {
         c = key.round(key.random(10, -10));
     }
-    var d = parseFloat(document.getElementById('iterationD').value) || key.round(key.random(10, -10));
+    var d = key.round(parseFloat(document.getElementById('iterationD').value)) || key.round(key.random(10, -10));
     while (d === 0) {
         d = key.round(key.random(10, -10));
     }
-    // Replacing old method with Newton's Method
+
+    
+    if (a === 1) {
+        output = "Equation: x³ ";
+    } else if (a === -1) {
+        output = "Equation: -x³";
+    } else {
+        output = "Equation: " + a + "x³ ";
+    }
+    if (b > 0) {
+        if (b === 1) {
+            output = output + "+ x² ";
+        } else {
+            output = output + "+ " + b + "x² ";
+        }
+    } else {
+        if (b === -1) {
+            output = output + "- x² ";
+        } else {
+            output = output + "- " + Math.abs(b) + "x² ";
+        }
+    }
+    if (c > 0) {
+        if (c === 1) {
+            output = output + "+ x ";
+        } else {
+            output = output + "+ " + c + "x ";
+        }
+    } else {
+        if (c === -1) {
+            output = output + "- x ";
+        } else {
+            output = output + "- " + Math.abs(c) + "x ";
+        }
+    }
+    if (d > 0) {
+        output = output + "+ " + d + "<br>";
+    } else {
+        output = output + "- " + Math.abs(d) + "<br>";
+    }
+
+    var startNumber = parseFloat(document.getElementById('iterationStart').value) || key.round(key.random(100, -100));
+    var decimalPlaces = key.round(parseFloat(document.getElementById('iterationDecimalPlaces').value)) || key.round(key.random(4, 2));
+
+    output = output + "Decimal Places: " + decimalPlaces + "<br>x0 = " + startNumber + "<br>";
+
+    if (!key.isValidNumber(startNumber) || !key.isValidNumber(decimalPlaces)) {
+        output = "One of the inputs is invalid";
+    } else {
+        var x = [startNumber, key.round(newtonMethod(startNumber, a,b,c,d), "nearest", decimalPlaces + 1)];
+        while (key.round(x[x.length -1], "nearest", decimalPlaces) !== key.round(x[x.length - 2], "nearest", decimalPlaces)) {
+            x.push(key.round(newtonMethod(x[x.length - 1], a,b,c,d), "nearest", decimalPlaces + 1));
+
+            if (x.length >= 1000) {
+                break;
+            }
+        }
+        console.log(x);
+
+        
+
+        var iterations = x.length - 1;
+        
+        if (x.length >= 1000) {
+            output = output + "It will take too long";
+        } else {
+            output = output + "Root: " + key.round(x[x.length - 1], "nearest", decimalPlaces) + "<br>";
+            if (iterations > 1) {
+                output = output + "Took " + iterations + " iterations<br>";
+            } else {
+                output = output + "Took one iteration<br>";
+            }
+
+            var noOfIterations = x.length - 1;
+
+            var root_ = key.round(x[x.length - 1], "nearest", decimalPlaces);
+            // console.log("Root: " + root_);
+            var root_Value = formula(root_, a,b,c,d);
+            // console.log("root_Value = " + root_Value);
+
+            var low = ((root_ * Math.pow(10, decimalPlaces)) - 0.5) / Math.pow(10, decimalPlaces);
+            // console.log("Low: " + low);
+            var lowValue = formula(low, a,b,c,d);
+            // console.log("lowValue = " + lowValue);
+
+            var high = ((root_ * Math.pow(10, decimalPlaces)) + 0.5) / Math.pow(10, decimalPlaces);
+            // console.log("High: " + high);
+            var highValue = formula(high, a,b,c,d);
+            // console.log("highValue = " + highValue);
+
+            output = output + "f(" + low + ") = " + lowValue + "<br>f(" + root_ + ") = " + root_Value + "<br>f(" + high + ") = " + highValue;
+        }
+    }
 
     document.getElementById('iterationOutput').innerHTML = output;
     console.log(" ");
@@ -1190,10 +1155,7 @@ var happyNumbers = function() {
 /*
 TODO List - 
 1. Enhancement {
-    a. iteration() {
-        i. Replace old iteration method with Newton's Method
-       ii. Improve it along the way
-    }
+    a. None
 }
 2. None
 */
