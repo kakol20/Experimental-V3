@@ -1084,7 +1084,7 @@ var monteCarlo = function() {
     var rep = Math.abs(document.getElementById('monteCarloRep').value) || Number(key.random(5000000, 500000).toPrecision(3));
 
     var output = "";
-
+    
     if (!key.isValidNumber(max) || !key.isValidNumber(rep)) {
         output = "An input is invalid";
     } else {
@@ -1105,7 +1105,6 @@ var monteCarlo = function() {
         var percentOff = Number(((Math.abs(estimate - Math.PI) / Math.PI) * 100).toPrecision(4));
         output = "Total: " + total + "<br>In Circle: " + inCircle + "<br>Estimate: " + Number(estimate.toPrecision(9)) + "<br>Percentage Off: " + percentOff + "%";
     }
-
     document.getElementById('monteCarloOutput').innerHTML = output;
 };
 
