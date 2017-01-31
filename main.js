@@ -1164,6 +1164,63 @@ var happyNumbers = function() {
     }
 };
 
+var carmichael = function() {
+    alert("Bigger numbers and bigger gap between minimum and maximum means it will take longer to find the Carmichael numbers");
+    var t0 = performance.now();
+
+    var fermatLittleThereom = function(p) {
+        for (var i = 2; i <= 5; i++) {
+            if (!bigInt(i).pow(p).subtract(i).isDivisibleBy(p)) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    var isCarmichael = function(p) {
+        if (fermatLittleThereom(p)) {
+            if (!bigInt(p).isPrime()) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    var min = document.getElementById('carmichaelMin').value || key.round(key.random(1111, 1));
+    // console.log(min);
+    var max = document.getElementById('carmichaelMax').value || key.round(key.random(min + (Math.PI * 1000), min + (Math.PI * 100)));
+    // console.log(max);
+
+    var numbers = [];
+    for (var i = min.toString(); bigInt(max.toString()).greaterOrEquals(i); i = bigInt(i).next().toString()) {
+        if (isCarmichael(i)) {
+            numbers.push(i);
+        }
+    }
+
+    var output = "";
+    if (numbers.length === 0) {
+        output = "No Carmichael Numbers where found";
+    } else {
+        for (var i = 0; i < numbers.length; i++) {
+            if (i === 0) {
+                output = numbers[i].toString();
+            } else {
+                output = output + ", " + numbers[i];
+            }
+        }
+    }
+
+    document.getElementById('carmichaelOutput').innerHTML = output;
+    var t1 = performance.now();
+    var t = Math.abs(t1 - t0);
+    if (t >= 1000) {
+        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
+    } else {
+        console.log("Took: " + t.toPrecision(4) + "ms");
+    }
+};
+
 /*
 TODO List - 
 1. Enhancement {
