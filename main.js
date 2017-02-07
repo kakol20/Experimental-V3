@@ -162,7 +162,7 @@ var key = (function() {
                     c.push(b[i]);
                     d.push(1);
                 } else {
-                    d[d.length - 1] ++;
+                    d[d.length - 1]++;
                 }
                 prev = b[i];
             }
@@ -941,15 +941,15 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
     // ax³ + bx² + cx + d
     var output = "";
 
-    var formula = function(x, a,b,c,d) {
+    var formula = function(x, a, b, c, d) {
         return (a * Math.pow(x, 3)) + (b * Math.pow(x, 2)) + (c * x) + d;
     };
-    var derivative = function(x, a,b,c,d) {
+    var derivative = function(x, a, b, c, d) {
         d = d || 0;
         return (3 * a * Math.pow(x, 2)) + (2 * b * x) + c;
     };
-    var newtonMethod = function(x, a,b,c,d) {
-        return x - (formula(x, a,b,c,d) / derivative(x, a,b,c));
+    var newtonMethod = function(x, a, b, c, d) {
+        return x - (formula(x, a, b, c, d) / derivative(x, a, b, c));
     };
 
     var a = key.round(parseFloat(document.getElementById('iterationA').value)) || key.round(key.random(10, -10));
@@ -969,7 +969,6 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
         d = key.round(key.random(10, -10));
     }
 
-    
     if (a === 1) {
         output = "Equation: x³ ";
     } else if (a === -1) {
@@ -1017,9 +1016,9 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
     if (!key.isValidNumber(startNumber) || !key.isValidNumber(decimalPlaces)) {
         output = "One of the inputs is invalid";
     } else {
-        var x = [startNumber, key.round(newtonMethod(startNumber, a,b,c,d), "nearest", decimalPlaces + 1)];
-        while (key.round(x[x.length -1], "nearest", decimalPlaces) !== key.round(x[x.length - 2], "nearest", decimalPlaces)) {
-            x.push(key.round(newtonMethod(x[x.length - 1], a,b,c,d), "nearest", decimalPlaces + 1));
+        var x = [startNumber, key.round(newtonMethod(startNumber, a, b, c, d), "nearest", decimalPlaces + 1)];
+        while (key.round(x[x.length - 1], "nearest", decimalPlaces) !== key.round(x[x.length - 2], "nearest", decimalPlaces)) {
+            x.push(key.round(newtonMethod(x[x.length - 1], a, b, c, d), "nearest", decimalPlaces + 1));
 
             if (x.length >= 1000) {
                 break;
@@ -1027,17 +1026,15 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
         }
         console.log(x);
 
-        
-
         var iterations = x.length - 1;
-        
+
         if (x.length >= 1000) {
             var temp = key.countDupes(x);
             var temp2 = [];
             for (var i = 0; i < temp[0].length; i++) {
                 temp2.push([temp[0][i], temp[1][i]]);
             }
-            temp2.sort(function(a,b) {
+            temp2.sort(function(a, b) {
                 return b[1] - a[1];
             });
 
@@ -1058,17 +1055,17 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
 
             var root_ = key.round(x[x.length - 1], "nearest", decimalPlaces);
             // console.log("Root: " + root_);
-            var root_Value = formula(root_, a,b,c,d);
+            var root_Value = formula(root_, a, b, c, d);
             // console.log("root_Value = " + root_Value);
 
             var low = key.round(((root_ * Math.pow(10, decimalPlaces)) - 0.5) / Math.pow(10, decimalPlaces), "nearest", decimalPlaces + 1);
             // console.log("Low: " + low);
-            var lowValue = formula(low, a,b,c,d);
+            var lowValue = formula(low, a, b, c, d);
             // console.log("lowValue = " + lowValue);
 
             var high = key.round(((root_ * Math.pow(10, decimalPlaces)) + 0.5) / Math.pow(10, decimalPlaces), "nearest", decimalPlaces + 1);
             // console.log("High: " + high);
-            var highValue = formula(high, a,b,c,d);
+            var highValue = formula(high, a, b, c, d);
             // console.log("highValue = " + highValue);
 
             output = output + "f(" + low + ") = " + lowValue + "<br>f(" + root_ + ") = " + root_Value + "<br>f(" + high + ") = " + highValue;
@@ -1084,7 +1081,7 @@ var monteCarlo = function() {
     var rep = Math.abs(document.getElementById('monteCarloRep').value) || Number(key.random(5000000, 500000).toPrecision(3));
 
     var output = "";
-    
+
     if (!key.isValidNumber(max) || !key.isValidNumber(rep)) {
         output = "An input is invalid";
     } else {
