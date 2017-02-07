@@ -1061,12 +1061,12 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
             var root_Value = formula(root_, a,b,c,d);
             // console.log("root_Value = " + root_Value);
 
-            var low = ((root_ * Math.pow(10, decimalPlaces)) - 0.5) / Math.pow(10, decimalPlaces);
+            var low = key.round(((root_ * Math.pow(10, decimalPlaces)) - 0.5) / Math.pow(10, decimalPlaces), "nearest", decimalPlaces + 1);
             // console.log("Low: " + low);
             var lowValue = formula(low, a,b,c,d);
             // console.log("lowValue = " + lowValue);
 
-            var high = ((root_ * Math.pow(10, decimalPlaces)) + 0.5) / Math.pow(10, decimalPlaces);
+            var high = key.round(((root_ * Math.pow(10, decimalPlaces)) + 0.5) / Math.pow(10, decimalPlaces), "nearest", decimalPlaces + 1);
             // console.log("High: " + high);
             var highValue = formula(high, a,b,c,d);
             // console.log("highValue = " + highValue);
