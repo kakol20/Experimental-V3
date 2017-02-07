@@ -6,6 +6,3 @@ A script where I experiment with different algorithms
 
 #Plug
 [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow%20%40The Banana Guy)](https://twitter.com/the_banana_guy_)
-
-#Info
-Deleted test branch for now
