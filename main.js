@@ -1218,6 +1218,62 @@ var carmichael = function() {
     }
 };
 
+var lcmAtoB = function() {
+    alert("Bigger numbers will take longer time to execute. Biggest number you can input is 39 466");
+    // http://pastebin.com/RBa0HpWj
+    var t0 = performance.now();
+
+    var gcd = function(a, b) {
+        a = a.abs();
+        b = b.abs();
+        if (b.greaterOrEquals(a)) {
+            var temp = a;
+            a = b;
+            b = temp;
+        }
+        while (true) {
+            if (b.equals("0")) {
+                return a;
+            }
+            a = a.mod(b);
+            if (a.equals("0")) {
+                return b;
+            }
+            b = b.mod(a);
+        }
+    };
+    var lcm = function(a, b) {
+        return (a.multiply(b)).divide(gcd(a, b));
+    };
+
+    var a = document.getElementById('lcmA').value || key.round(key.random(39466, 1));
+    a = bigInt(a);
+    var b = document.getElementById('lcmB').value || key.round(key.random(39456, 1));
+    b = bigInt(b);
+
+    var result = bigInt(1);
+    if (b.greater(a)) {
+        var temp = a;
+        a = b;
+        b = temp;
+    }
+    for (var i = b; i.lesserOrEquals(a); i = i.next()) {
+        result = lcm(result, i);
+    }
+    result = result.toString();
+
+    var output = "Smallest Number Divisible By All Numbers Between " + key.numberOutput(b.toString()) + " & " + key.numberOutput(a.toString()) + " is: " + key.numberOutput(result) + "<br>Length: " + result.length;
+    document.getElementById('lcmOutput').innerHTML = output;
+
+    var t1 = performance.now();
+    var t = Math.abs(t1 - t0);
+    if (t >= 1000) {
+        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
+    } else {
+        console.log("Took: " + t.toPrecision(4) + "ms");
+    }
+};
+
 /*
 TODO List - 
 1. Enhancement {
