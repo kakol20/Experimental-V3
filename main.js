@@ -8,7 +8,7 @@ Notes: {
         
     Use var.split(',') to turn into list:
         var a = "a,b,c,d,e,f,g";
-        var b = a.split(',');
+        var b = n.split(',');
 
         result of b: [a,b,c,d,e,f,g];
         
@@ -73,11 +73,11 @@ Notes: {
         result of b: [1, 3];
 }
 */
-
+//Key functions
 var key = (function() {
     return {
         isString: function(a) {
-            return isNaN(a);  
+            return isNaN(a);
         },
 
         random: function(a, b) {
@@ -98,6 +98,24 @@ var key = (function() {
             }
         },
 
+        approxSqrt: function(a) {
+            var b = a;
+            var c = 1;
+            while (true) {
+                b = a - (c * c);
+                if (b === 0) {
+                    break;
+                } else if (b < 0) {
+                    c--;
+                    break;
+                } else {
+                    c++;
+                }
+            }
+            b = a - (c * c);
+            return c + (b / (c * 2));
+        },
+
         sortAscending: function(a, b) {
             return a - b;
             //array.sort(key.sortAscending);
@@ -107,12 +125,11 @@ var key = (function() {
         },
 
         isPrime: function(a) {
-            a = bigInt(a);
-            if (a.equals(2)) {
-                return true;
-            } else if (a.greater(2)) {
-                for (var i = bigInt(2); i.lesserOrEquals(6); i = i.next()) {
-                    if ((a.mod(i)).equals(0)) {
+            if (a == 2) {
+                return "true";
+            } else if (a > 2) {
+                for (var i = 2; i <= Math.sqrt(a); i++) {
+                    if ((a % i) === 0) {
                         return "false";
                     }
                 }
@@ -252,82 +269,39 @@ var key = (function() {
             };
         })(),
 
+        tenToThePowerOf: function(a) {
+            var b = 1;
+            if (a < 0) {
+                for (var i = 0; i < Math.abs(a); i++) {
+                    b = b / 10;
+                }
+                return b;
+            } else {
+                for (var i = 0; i < a; i++) {
+                    b = b * 10;
+                }
+                return b;
+            }
+        },
+
+        toSigFigures: function(n, sF, r) {
+            r = r || "nearest";
+            var a = key.round(Math.log(Math.abs(n)) / Math.log(10), "down");
+            var b = n / key.tenToThePowerOf(a);
+            var c = key.round(b, r, sF - 1);
+            var d = c * key.tenToThePowerOf(a);
+            return d;
+        },
+
         isValidNumber: function(n) {
             return !(isNaN(Number(n)) || (n === null) || (Number(n) == Number.POSITIVE_INFINITY));
         },
-
-        convertWeek: function(w) {
-            var weekToConvert = w;
-            var week = key.round(weekToConvert, "down");
-
-            var dayToConvert = (weekToConvert - week) * 7;
-            var day = key.round(dayToConvert, "down");
-
-            var hourToConvert = (dayToConvert - day) * 24;
-            var hour = key.round(hourToConvert, "down");
-
-            var minuteToConvert = (hourToConvert - hour) * 60;
-            var minute = key.round(minuteToConvert, "down");
-
-            var second = key.round((minuteToConvert - minute) * 60, "nearest", 2);
-
-            if (week == 1) {
-                week = week + " week, ";
-            } else {
-                week = week + " weeks, ";
-            }
-            if (day == 1) {
-                day = day + " day, ";
-            } else {
-                day = day + " days, ";
-            }
-            if (hour == 1) {
-                hour = hour + " hour, ";
-            } else {
-                hour = hour + " hours, ";
-            }
-            if (minute == 1) {
-                minute = minute + " minute and ";
-            } else {
-                minute = minute + " minutes and ";
-            }
-            if (second == 1) {
-                second = second + " second";
-            } else {
-                second = second + " seconds";
-            }
-
-            var converted = [week, day, hour, minute, second];
-            var output = "";
-            for (var i = 0; i < converted.length; i++) {
-                output = output + converted[i];
-            }
-
-            return output;
-        },
-
-        approxSqrt: function(a) {
-            var b = a;
-            var c = 1;
-
-            while (true) {
-                b = a - (c * c);
-
-                if (b === 0) {
-                    break;
-                } else if (b < 0) {
-                    c--;
-                    break;
-                } else {
-                    c++;
-                }
-            }
-
-            b = a - (c * c);
-            return c + (b / (c * 2));
-        },
     };
 })();
+
+var reload = function() {
+    location.reload();
+};
 
 // http://www.accessify.com/tools-and-wizards/developer-tools/html-javascript-convertor - For future reference
 
@@ -342,8 +316,6 @@ var getPrimes = function() {
     var minNmax = [min, max];
     minNmax.sort(key.sortAscending);
 
-    var t0 = performance.now();
-
     var primes = [];
     for (var i = key.round(minNmax[0], "up"); i <= key.round(minNmax[1], "down"); i++) {
         if (i >= 2) {
@@ -353,12 +325,12 @@ var getPrimes = function() {
         }
     }
 
-    var output = "";
+    var output;
     for (var i = 0; i < primes.length; i++) {
         if (i > 0) {
-            output = output + ", " + primes[i].toString();
+            output = output + ", " + primes[i];
         } else {
-            output = output + primes[i].toString();
+            output = primes[i].toString();
         }
     }
 
@@ -366,19 +338,61 @@ var getPrimes = function() {
     console.log("Min: " + min);
     console.log("Max: " + max);
     console.log("Length: " + primes.length);
+    console.log(" ");
+};
 
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
+var convertWeek = function() {
+    var weekToConvert = document.getElementById('convertWeek').value || key.random(366 / 7);
+    var week = key.round(weekToConvert, "down");
+
+    var dayToConvert = (weekToConvert - week) * 7;
+    var day = key.round(dayToConvert, "down");
+
+    var hourToConvert = (dayToConvert - day) * 24;
+    var hour = key.round(hourToConvert, "down");
+
+    var minuteToConvert = (hourToConvert - hour) * 60;
+    var minute = key.round(minuteToConvert, "down");
+
+    var second = key.round((minuteToConvert - minute) * 60, "nearest", 2);
+
+    if (week == 1) {
+        week = week + " week, ";
     } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
+        week = week + " weeks, ";
     }
+    if (day == 1) {
+        day = day + " day, ";
+    } else {
+        day = day + " days, ";
+    }
+    if (hour == 1) {
+        hour = hour + " hour, ";
+    } else {
+        hour = hour + " hours, ";
+    }
+    if (minute == 1) {
+        minute = minute + " minute and ";
+    } else {
+        minute = minute + " minutes and ";
+    }
+    if (second == 1) {
+        second = second + " second.";
+    } else {
+        second = second + " seconds.";
+    }
+
+    var converted = [week, day, hour, minute, second];
+    var output = "";
+    for (var i = 0; i < converted.length; i++) {
+        output = output + converted[i];
+    }
+    document.getElementById('convertedWeek').innerHTML = output;
     console.log(" ");
 };
 
 var timeUntil = function() {
-    // http://ditio.net/2010/05/02/javascript-date-difference-calculation/
+    //http://ditio.net/2010/05/02/javascript-date-difference-calculation/
 
     var inWeeks = function(a, b) {
         var c = a.getTime();
@@ -401,7 +415,7 @@ var timeUntil = function() {
         return !isNaN(a.getTime());
     };
 
-    var date = document.getElementById('timeUntilInput').value || "random";
+    var date = document.getElementById('timeUntilDate').value || "random";
 
     var futureDate = new Date(date);
     var currentDate = new Date();
@@ -439,57 +453,247 @@ var timeUntil = function() {
         futureDate = new Date(randomisedDate);
     }
 
-    var t0 = performance.now();
-
     currentDate = new Date();
-    var output = key.convertWeek(inWeeks(futureDate, currentDate)) + " left until " + futureDate;
-    document.getElementById('timeUntilOutput').innerHTML = output;
+    var weekToConvert = inWeeks(futureDate, currentDate);
+    var week = convertRound(weekToConvert);
 
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
+    var dayToConvert = (weekToConvert - week) * 7;
+    var day = convertRound(dayToConvert);
+
+    var hourToConvert = (dayToConvert - day) * 24;
+    var hour = convertRound(hourToConvert);
+
+    var minuteToConvert = (hourToConvert - hour) * 60;
+    var minute = convertRound(minuteToConvert);
+
+    var second = key.round((minuteToConvert - minute) * 60, "nearest", 2);
+
+    if (week == 1) {
+        week = week + " week, ";
     } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
+        week = week + " weeks, ";
     }
+
+    if (day == 1) {
+        day = day + " day, ";
+    } else {
+        day = day + " days, ";
+    }
+
+    if (hour == 1) {
+        hour = hour + " hour, ";
+    } else {
+        hour = hour + " hours, ";
+    }
+
+    if (minute == 1) {
+        minute = minute + " minute and ";
+    } else {
+        minute = minute + " minutes and ";
+    }
+
+    if (second == 1) {
+        second = second + " second left till " + futureDate + ".";
+    } else {
+        second = second + " seconds left till " + futureDate + ".";
+    }
+
+    var converted = [week, day, hour, minute, second];
+    var output = "";
+    for (var i = 0; i < converted.length; i++) {
+        output = output + converted[i];
+    }
+
+    document.getElementById('timeUntilOutput').innerHTML = output;
+    console.log(" ");
+};
+
+var toBinary = function() {
+    var n1;
+    var n2;
+    var n4;
+    var n8;
+    var n16;
+    var n32;
+    var n64;
+    var n128;
+
+    var n = document.getElementById('toBinaryValue').value || key.round(key.random(255));
+    console.log("Denary Value: " + n);
+
+    if (n > 255) {
+        document.getElementById('toBinaryOutput').innerHTML = "Overflow Error";
+    } else if ((n % 1) !== 0) {
+        document.getElementById('toBinaryOutput').innerHTML = "Invalid Denary Value";
+    } else {
+        if (n >= 128) {
+            n128 = "1";
+            n -= 128;
+        } else {
+            n128 = "0";
+        }
+
+        if (n >= 64) {
+            n64 = "1";
+            n -= 64;
+        } else {
+            n64 = "0";
+        }
+
+        if (n >= 32) {
+            n32 = "1";
+            n -= 32;
+        } else {
+            n32 = "0";
+        }
+
+        if (n >= 16) {
+            n16 = "1";
+            n -= 16;
+        } else {
+            n16 = "0";
+        }
+
+        if (n >= 8) {
+            n8 = "1";
+            n -= 8;
+        } else {
+            n8 = "0";
+        }
+
+        if (n >= 4) {
+            n4 = "1";
+            n -= 4;
+        } else {
+            n4 = "0";
+        }
+
+        if (n >= 2) {
+            n2 = "1";
+            n -= 2;
+        } else {
+            n2 = "0";
+        }
+
+        if (n >= 1) {
+            n1 = "1";
+        } else {
+            n1 = "0";
+        }
+
+        var binary = [n128, n64, n32, n16, n8, n4, n2, n1];
+        var output = "";
+        for (var i = 0; i < binary.length; i++) {
+            if (i <= 3) {
+                output = output + binary[i];
+            } else if (i == 4) {
+                output = output + " " + binary[i];
+            } else {
+                output = output + binary[i];
+            }
+        }
+        document.getElementById('toBinaryOutput').innerHTML = output;
+    }
+    console.log(" ");
+};
+
+var partitions = function() {
+    var num = document.getElementById('partitionsValue').value || key.round(key.random(100));
+
+    var output;
+    if (((num % 1) !== 0) || (num <= 0)) {
+        document.getElementById('partitionsOutput').innerHTML = "This number cannot have partitions";
+    } else {
+        var part1 = 4 * num * Math.sqrt(3);
+        var part2 = Math.PI * Math.sqrt((2 * num) / 3);
+        output = (1 / part1) * Math.exp(part2);
+
+        document.getElementById('partitionsOutput').innerHTML = num + " has " + key.round(output) + " partitions";
+    }
+    console.log(" ");
+};
+
+var factorableQuadratic = function() {
+    var plusOrMinus = function(a) {
+        if (a >= 0) {
+            return "+ " + a;
+        } else {
+            return "- " + Math.abs(a);
+        }
+    };
+    var xValue4Quadratic = function(a) {
+        if (a == 1) {
+            return "+ x";
+        } else if (a == -1) {
+            return "- x";
+        } else {
+            return plusOrMinus(a) + "x";
+        }
+    };
+    var xValue4Factored = function(a) {
+        if (a == 1) {
+            return "x";
+        } else if (a == -1) {
+            return "-x";
+        } else {
+            return a + "x";
+        }
+    };
+
+    var a = 0;
+    while (a === 0) {
+        a = key.round(key.random(5, -5));
+    }
+
+    var b = 0;
+    while (b === 0) {
+        b = key.round(key.random(15, -15));
+    }
+
+    var c = 0;
+    while (c === 0) {
+        c = key.round(key.random(5, -5));
+    }
+
+    var d = 0;
+    while (d === 0) {
+        d = key.round(key.random(15, -15));
+    }
+
+    var aX = xValue4Factored(a);
+    var bX = plusOrMinus(b);
+    var cX = xValue4Factored(c);
+    var dX = plusOrMinus(d);
+
+    var factored = "(" + aX + " " + bX + ")(" + cX + " " + dX + ")";
+
+    var ac = a * c;
+    var adbc = xValue4Quadratic((a * d) + (b * c));
+    var bd = plusOrMinus(b * d);
+
+    var quadratic = ac + "x² " + adbc + " " + bd;
+
+    document.getElementById('factorableOutput').innerHTML = quadratic + " to " + factored;
     console.log(" ");
 };
 
 var medianIQR = function() {
     var isDecimal = function(a) {
-        if ((a % 1) === 0) {
+        if ((a % i) === 0) {
             return false;
         } else {
             return true;
         }
     };
 
-    var createList = function() {
-        var a = "";
+    var randomArrayLength = document.getElementById('IQRLength').value || key.round(key.random(15, 10));
+    var randomArrayMax = document.getElementById('IQRMax').value || key.round(key.random(15, 10));
 
-        for (var i = 0; i < 50; i++) {
-            if (i === 0) {
-                a = a + key.round(key.random(50, 1));
-            } else {
-                a = a + ", " + key.round(key.random(50, 1));
-            }
-        }
-        return a;
-    };
-    var toArray = function(a) {
-        var b = a.split(', ');
-        var c = [];
-        for (var i = 0; i < b.length; i++) {
-            c.push(parseInt(b[i]));
-        }
-        return c;
+    var array = [];
+    for (var i = 0; i < key.round(randomArrayLength, "down"); i++) {
+        array.push(key.round(key.random(randomArrayMax), "up", 1));
     }
-
-    var initial = document.getElementById('IQRInput').value || createList();
-    var array = toArray(initial);
-    console.log(array);
-
-    var t0 = performance.now();
+    array.sort(key.sortAscending);
 
     var q1 = key.round(array[key.round(((array.length / 4) - 1), "up")], "nearest", 1);
     var q3 = key.round(array[key.round((((array.length * 3) / 4) - 1), "up")], "nearest", 1);
@@ -510,15 +714,8 @@ var medianIQR = function() {
 
     var output = "The median is " + median + "<br>Q1 is " + q1 + "<br>Q3 is " + q3 + "<br>The interquartile range is " + iqr + "<br>The max is " + maxArray + "<br>The min is " + minArray;
 
-    document.getElementById('IQROutput').innerHTML = output;   
-
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
-    }
+    document.getElementById('IQROutput').innerHTML = output;
+    console.log(array);
     console.log(" ");
 };
 
@@ -526,8 +723,6 @@ var approximateSqrt = function() {
     //https://www.youtube.com/watch?v=PJHtqMjrStk
 
     var num = document.getElementById('sqrtOf').value || key.round(key.random(Math.PI * 100));
-
-    var t0 = performance.now();
 
     var approximate = key.approxSqrt(num);
 
@@ -537,14 +732,6 @@ var approximateSqrt = function() {
     var percentOff = key.round((Math.abs(actual - approximate) / actual) * 100, "nearest", 4);
 
     document.getElementById('approxSqrtOutput').innerHTML = "The approximate square root of " + num + " is " + key.round(approximate, "nearest", 4) + " and it was " + percentOff + "% off the real value";
-    
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
-    }
     console.log(" ");
 };
 
@@ -585,8 +772,6 @@ var normalDistribution = function() {
 
     var val = document.getElementById('ndfValue').value || key.random(mean + (sd * 4), mean - (sd * 4));
 
-    var t0 = performance.now();
-
     var result = key.round(calculate(val, mean, sd), "nearest", 4);
 
     val = key.round(val, "nearest", 2);
@@ -594,14 +779,6 @@ var normalDistribution = function() {
 
     document.getElementById('ndfOutput').innerHTML = "X ~ N(" + mean + ", " + key.round(sd, "nearest", 2) + "²) --> P(X < " + val + ") = " + result;
     console.log("P(Z < " + key.round((val - mean) / sd, "nearest", 2) + ")");
-
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
-    }
     console.log(" ");
 };
 
@@ -650,42 +827,30 @@ var averages = function() {
         return key.round(b / a.length, "nearest", 2);
     };
 
-    var createList = function() {
-        var a = "";
+    var max = Math.abs(document.getElementById('avgMax').value) || key.random(Math.PI * 10, 10);
+    var min = Math.abs(document.getElementById('avgMin').value) || key.random(max, 1);
+    var length = Math.abs(document.getElementById('avgLength').value) || key.random(Math.PI * 7.5, 5);
 
-        for (var i = 0; i < 50; i++) {
-            if (i === 0) {
-                a = a + key.round(key.random(50, 1));
-            } else {
-                a = a + ", " + key.round(key.random(50, 1));
-            }
-        }
-        return a;
-    };
-    var toArray = function(a) {
-        var b = a.split(", ");
-        var c = [];
-        for (var i = 0; i < b.length; i++) {
-            c.push(parseInt(b[i]));
-        }
-        return c;
-    };
+    //Max and Min must not be the same values
+    while (min == max) {
+        min = key.random(max, 1);
+    }
 
-    var initial = document.getElementById('averagesInput').value || createList();
-    var list = toArray(initial);
+    //Max must be bigger than min
+    var bigger = [key.round(min), key.round(max)];
+    bigger.sort(key.sortAscending);
+
+    console.log("Max: " + bigger[1]);
+    console.log("Min: " + bigger[0]);
+    console.log("Length: " + key.round(length, "down"));
+
+    var list = [];
+    for (var i = 0; i < key.round(length, "down"); i++) {
+        list.push(key.round(key.random(bigger[1], bigger[0])));
+    }
     console.log(list);
 
-    var t0 = performance.now();
-
     document.getElementById('avgOutput').innerHTML = "Mode: " + mode(list) + "<br>Median: " + median(list) + "<br>Mean: " + mean(list);
-
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
-    }
     console.log(" ");
 };
 
@@ -751,8 +916,6 @@ var morseConvert = function() {
 
     var input = document.getElementById('morseInput').value || "";
 
-    var t0 = performance.now();
-
     if ((input === " ") || (input === "")) {
         document.getElementById('morseOutput').innerHTML = "You must input something";
     } else {
@@ -770,14 +933,6 @@ var morseConvert = function() {
         } else {
             document.getElementById('morseOutput').innerHTML = morseCode.toSentence(input);
         }
-    }
-
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
     }
     console.log(" ");
 };
@@ -853,8 +1008,6 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
         output = output + "- " + Math.abs(d) + "<br>";
     }
 
-    var t0 = performance.now();
-
     var startNumber = parseFloat(document.getElementById('iterationStart').value) || key.round(key.random(100, -100));
     var decimalPlaces = key.round(parseFloat(document.getElementById('iterationDecimalPlaces').value)) || key.round(key.random(4, 2));
 
@@ -920,14 +1073,6 @@ var iteration = function() { // https://en.wikipedia.org/wiki/Newton's_method
     }
 
     document.getElementById('iterationOutput').innerHTML = output;
-
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
-    }
     console.log(" ");
 };
 
@@ -936,8 +1081,6 @@ var monteCarlo = function() {
     var rep = Math.abs(document.getElementById('monteCarloRep').value) || Number(key.random(5000000, 500000).toPrecision(3));
 
     var output = "";
-
-    var t0 = performance.now();
 
     if (!key.isValidNumber(max) || !key.isValidNumber(rep)) {
         output = "An input is invalid";
@@ -960,15 +1103,13 @@ var monteCarlo = function() {
         output = "Total: " + total + "<br>In Circle: " + inCircle + "<br>Estimate: " + Number(estimate.toPrecision(9)) + "<br>Percentage Off: " + percentOff + "%";
     }
     document.getElementById('monteCarloOutput').innerHTML = output;
+};
 
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
-    }
-    console.log(" ");
+var base64Convert = function() {
+    var random = key.round(key.random(key.base64.toNumber("// //"), key.base64.toNumber(1000)));
+    var n = document.getElementById('base64ConvertNum').value || random;
+    var converted = key.base64.fromNumber(n, "yes");
+    document.getElementById('base64ConvertOutput').innerHTML = "Number: " + n + "<br>Base-64: " + converted;
 };
 
 var happyNumbers = function() {
@@ -1013,22 +1154,11 @@ var happyNumbers = function() {
 
     var number = key.round(document.getElementById('happyNumbersInput').value) || key.round(key.random(Math.PI * 100, 5));
 
-    var t0 = performance.now();
-
     if (isHappyNumber(number)[0]) {
         document.getElementById('happyNumbersOutput').innerHTML = isHappyNumber(number)[1] + "<br>" + number + " is a happy number";
     } else {
         document.getElementById('happyNumbersOutput').innerHTML = isHappyNumber(number)[1] + "<br>" + number + " is not a happy number";
     }
-
-    var t1 = performance.now();
-    var t = Math.abs(t1 - t0);
-    if (t >= 1000) {
-        console.log("Took: " + key.round(t / 1000, "nearest", 4) + "s");
-    } else {
-        console.log("Took: " + t.toPrecision(5) + "ms");
-    }
-    console.log(" ");
 };
 
 var carmichael = function() {
@@ -1058,8 +1188,6 @@ var carmichael = function() {
     var max = document.getElementById('carmichaelMax').value || key.round(key.random(min + (Math.PI * 1000), min + (Math.PI * 100)));
     // console.log(max);
 
-    var t0 = performance.now();
-
     var numbers = [];
     for (var i = min.toString(); bigInt(max.toString()).greaterOrEquals(i); i = bigInt(i).next().toString()) {
         if (isCarmichael(i)) {
@@ -1088,12 +1216,12 @@ var carmichael = function() {
     } else {
         console.log("Took: " + t.toPrecision(4) + "ms");
     }
-    console.log(" ");
 };
 
 var lcmAtoB = function() {
     alert("Bigger numbers will take longer time to execute. Biggest number you can input is 39 466");
     // http://pastebin.com/RBa0HpWj
+    var t0 = performance.now();
 
     var gcd = function(a, b) {
         a = a.abs();
@@ -1123,8 +1251,6 @@ var lcmAtoB = function() {
     var b = document.getElementById('lcmB').value || key.round(key.random(39456, 1));
     b = bigInt(b);
 
-    var t0 = performance.now();
-
     var result = bigInt(1);
     if (b.greater(a)) {
         var temp = a;
@@ -1146,7 +1272,6 @@ var lcmAtoB = function() {
     } else {
         console.log("Took: " + t.toPrecision(4) + "ms");
     }
-    console.log(" ");
 };
 
 /*

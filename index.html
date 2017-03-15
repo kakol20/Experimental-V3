@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Experimental</title>
+	<title>Experimental V3</title>
+
+	<meta http-equiv="content-type" content="text/html charset=UTF-8">
 
 	<!-- Resizable on mobile devices -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Favicon -->
-	<meta name="msapplication-TileColor" content="#002366">
+	<meta name="msapplication-TileColor" content="#360000">
 	<meta name="msapplication-TileImage" content="icon/ms-icon-144x144.png">
-	<meta name="theme-color" content="#002366">
+	<meta name="theme-color" content="#360000">
 	<link rel="manifest" href="icon/manifest.json">
 	<link rel="apple-touch-icon" sizes="57x57" href="icon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="icon/apple-icon-60x60.png">
@@ -25,36 +28,34 @@
 	<link rel="icon" type="image/png" sizes="96x96" href="icon/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
 
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+	<!-- CSS stuff -->
+	<link rel="stylesheet" href="css/normalize.css" type="text/css" charset="utf-8">
+	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8">
 
-	<!-- JQuery -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 
-	<!-- BigInteger.js -->
-	<!-- https://github.com/peterolson/BigInteger.js -->
+	<!-- BigInteger.js https://github.com/peterolson/BigInteger.js -->
 	<script type="text/javascript" src="BigInteger.js"></script>
 
-	<!-- Main Script -->
 	<script type="text/javascript" src="main.js"></script>
 </head>
+
 <body>
 	<div class="header">
 		<div>
-			<p>Experimental Scripts V4</p>
+			<p>Experimental Scripts V3</p>
 		</div>
 	</div> <br>
-
 	<div class="body">
 		<noscript>
-			Your browser doesn't support JavaScript or does not have JavaScript enabled <br> <br>
+			Your browser doesn't support JavaScript or does not have JavaScript enabled <br><br>
 		</noscript>
 
-		<!-- All Primes Between Two Numbers -->
+		<!-- Displays prime numbers between two numbers -->
 		<form>
-			Max: <input type="number" id="primesMax" min="2" max="39466"> <br>
-			Min: <input type="number" id="primesMin" min="1" max="39466">
+			Max: <input type="number" id="primesMax" min="2"> <br>
+			Min: <input type="number" id="primesMin" min="1">
 		</form>
 		<button onclick="getPrimes()">
 			<div>
@@ -63,9 +64,20 @@
 		</button>
 		<div id="primes"></div> <br>
 
-		<!-- Time Until Future Date -->
+		<!-- Converts decimal Week into weeks, days, hours, minutes, and seconds -->
+		<form>
+			Decimal Week to Convert: <input type="number" id="convertWeek">
+		</form>
+		<button onclick="convertWeek()">
+			<div>
+				<p>Convert Decimal to Week</p>
+			</div>
+		</button>
+		<div id="convertedWeek"></div> <br>
+
+		<!-- Outputs time until future date -->
 		<div align="center">
-			<textarea rows="6" placeholder="Type date like this: March 15 2018, 3:00 PM" id="timeUntilInput"></textarea>
+			<textarea rows="6" placeholder="Type the date like this: November 22, 2017 19:23:45" id="timeUntilDate"></textarea>
 		</div>
 		<button onclick="timeUntil()">
 			<div>
@@ -74,9 +86,40 @@
 		</button>
 		<div id="timeUntilOutput"></div> <br>
 
-		<!-- Median, Other Quartiles And The Interquartile Range -->
+		<!-- Converts deary to binary -->
 		<form>
-			<textarea rows="6" placeholder="Split numbers like this: 2, 1, 3, 4, 7, 11, 18, 29" id="IQRInput"></textarea>
+			Denary Value: <input type="number" id="toBinaryValue" min="1">
+		</form>
+		<button onclick="toBinary()">
+			<div>
+				<p>Denary to Binary</p>
+			</div>
+		</button>
+		<div id="toBinaryOutput"></div> <br>
+
+		<!-- Calculate the approximate number of partitions an integer has -->
+		<form>
+			Value: <input type="number" id="partitionsValue" min="1">
+		</form>
+		<button onclick="partitions()">
+			<div>
+				<p>Number of Partitions</p>
+			</div>
+		</button>
+		<div id="partitionsOutput"></div> <br>
+
+		<!-- Generates a random factorable, quadratic formula -->
+		<button onclick="factorableQuadratic()">
+			<div>
+				<p>Factorable Quadratic</p>
+			</div>
+		</button>
+		<div id="factorableOutput"></div> <br>
+
+		<!-- Calculates the median, the other quartiles and the interquartile range -->
+		<form>
+			Length: <input type="number" id="IQRLength" min="1"> <br>
+			Max: <input type="number" id="IQRMax">
 		</form>
 		<button onclick="medianIQR()">
 			<div>
@@ -85,9 +128,9 @@
 		</button>
 		<div id="IQROutput"></div> <br>
 
-		<!-- Approximate Square Root -->
+		<!-- A written method of finding the approximate square root -->
 		<form>
-			Value: <input type="number" id="sqrtOf" min="1" max="39466">
+			Value: <input type="number" id="sqrtOf">
 		</form>
 		<button onclick="approximateSqrt()">
 			<div>
@@ -96,31 +139,33 @@
 		</button>
 		<div id="approxSqrtOutput"></div> <br>
 
-		<!-- Normal Distribution -->
+		<!-- Normal Distribution Calculator -->
 		<form>
-			Value: <input type="number" id="ndfValue" max="39466"> <br>
-			Mean: <input type="number" id="ndfMean" max="39466"> <br>
-			Standard Deviation: <input type="number" id="ndfSD" min="1" max="39466"> 
+			Value: <input type="number" id="ndfValue"> <br>
+			Mean: <input type="number" id="ndfMean"> <br>
+			Standard Deviation: <input type="number" id="ndfSD">
 		</form>
 		<button onclick="normalDistribution()">
 			<div>
-				<p>Normal Distribution</p>
+				<p>Normal Distribution Function</p>
 			</div>
 		</button>
 		<div id="ndfOutput"></div> <br>
 
-		<!-- Mode, Median, and Mean -->
+		<!-- Mode, Median and Mean calculator -->
 		<form>
-			<textarea rows="6" placeholder="Split numbers like this: 2, 1, 3, 4, 7, 11, 18, 29" id="averagesInput"></textarea>
+			Max: <input type="number" id="avgMax"> <br>
+			Min: <input type="number" id="avgMin"> <br>
+			Array Length: <input type="number" id="avgLength" min="1">
 		</form>
 		<button onclick="averages()">
 			<div>
-				<p>Averages</p>
+				<p>Mode, Median and Mean</p>
 			</div>
 		</button>
 		<div id="avgOutput"></div> <br>
 
-		<!-- Morse Code -->
+		<!-- Morse Code Converter -->
 		<div align="center">
 			<textarea rows="6" placeholder="Type your message here, either normal letters, numbers, and punctuation or Morse code using '.' for a dot, '-' for a dash, separating letters by spaces and words by '/'. Also, separate Morse code letters with space" id="morseInput"></textarea>
 		</div>
@@ -136,22 +181,22 @@
 		<form>
 			Starting Number: <input type="number" id="iterationStart"> <br>
 			Decimal Places: <input type="number" id="iterationDecimalPlaces" min="1"> <br>
-			a: <input type="number" id="iterationA" min="-39466" max="39466"> <br>
-			b: <input type="number" id="iterationB" min="-39466" max="39466"> <br>
-			c: <input type="number" id="iterationC" min="-39466" max="39466"> <br>
-			d: <input type="number" id="iterationD" min="-39466" max="39466">
+			a: <input type="number" id="iterationA"> <br>
+			b: <input type="number" id="iterationB"> <br>
+			c: <input type="number" id="iterationC"> <br>
+			d: <input type="number" id="iterationD">
 		</form>
 		<button onclick="iteration()">
 			<div>
 				<p>Iterations</p>
 			</div>
 		</button>
-		<div id="iterationOutput"></div> <br>
+		<div id="iterationOutput"></div> <br>	
 
 		<!-- Estimating PI using the Monte Carlo Method -->
 		<form>
-			Max: <input type="number" id="monteCarloMax" min="1" max="39466"> <br>
-			Number of Repetitions: <input type="number" id="monteCarloRep" min="1" max="39466">
+			Max: <input type="number" id="monteCarloMax" min="1"> <br>
+			Number of Repetitions: <input type="number" id="monteCarloRep" min="1">
 		</form>
 		<button onclick="monteCarlo()">
 			<div>
@@ -160,9 +205,20 @@
 		</button>
 		<div id="monteCarloOutput"></div> <br>
 
-		<!-- Happy Numbers -->
+		<!-- Number to Base 64 -->
 		<form>
-			Number: <input type="number" id="happyNumbersInput" min="1" max="39466">
+			Number to Base-64: <input type="number" id="base64ConvertNum" min="1">
+		</form>
+		<button onclick="base64Convert()">
+			<div>
+				<p>Convert to Base-64</p>
+			</div>
+		</button>
+		<div id="base64ConvertOutput"></div> <br>
+
+		<!-- Finds out if the number inputted is a Happy Number -->
+		<form>
+			Number: <input type="number" id="happyNumbersInput" min="1">
 		</form>
 		<button onclick="happyNumbers()">
 			<div>
@@ -171,10 +227,10 @@
 		</button>
 		<div id="happyNumbersOutput"></div> <br>
 
-		<!-- Carmichael Numbers -->
+		<!-- Displays Carmichael Numbers -->
 		<form>
-			Min: <input type="number" id="carmichaelMin" min="1" max="39466"> <br>
-			Max: <input type="number" id="carmichaelMax" min="1" max="39466">
+			Min: <input type="number" id="carmichaelMin"> <br>
+			Max: <input type="number" id="carmichaelMax">
 		</form>
 		<button onclick="carmichael()">
 			<div>
@@ -183,7 +239,7 @@
 		</button>
 		<div id="carmichaelOutput"></div> <br>
 
-		<!-- Smallest Possible Number Divisible To All Numbers Between A & B -->
+		<!-- Displays Smallest Possible Number Divisible To All Numbers Between A & B -->
 		<form>
 			A: <input type="number" id="lcmA" min="1" max="39465"> <br>
 			B: <input type="number" id="lcmB" min="1" max="39466">
@@ -194,6 +250,13 @@
 			</div>
 		</button>
 		<div id="lcmOutput"></div> <br>
+
+		<!-- Other -->
+		<button onclick="reload()">
+			<div>
+				<p>Reload Page</p>
+			</div>
+		</button>
 
 		<!-- Other -->
 		<a href="https://twitter.com/the_banana_guy_" target="_blank">
@@ -212,4 +275,5 @@
 		</a>
 	</div>
 </body>
+
 </html>

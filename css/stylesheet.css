@@ -4,8 +4,8 @@ https://www.fontsquirrel.com
 */
 body {
     font-family: 'Open Sans';
-    color: #002366;
-    background-color: #95aaaa;
+    color: #360000;
+    background-color: #FF301E;
     text-align: center;
     vertical-align: middle;
     padding: 0;
@@ -35,7 +35,7 @@ a {
 }
 
 .header {
-    background-color: #002366;
+    background-color: rgb( 54, 0, 0 );
     position: absolute;
     left: 0px;
     top: 0px;
@@ -44,7 +44,7 @@ a {
     z-index: 2;
 }
 .header div {
-    color: #95aaaa;
+    color: #FF301E;
     font-size: 40px;
     font-weight: bold;
     text-align: center;
@@ -60,7 +60,7 @@ a {
 }
 
 .body {
-    background-color: #95aaaa;
+    background-color: rgb( 255, 48, 30 );
     position: absolute;
     left: 0px;
     top: 125px;
@@ -71,11 +71,11 @@ a {
 
 button {
     border-width: 1px;
-    border-color: rgb( 137, 172, 239 );
-    border-style: outset;
+    border-color: rgb( 194, 140, 140 );
+    border-style: solid;
     border-radius: 3px;
-    background-image: -moz-linear-gradient( 90deg, rgb( 222, 233, 255 ) 0%, rgb( 255, 255, 255 ) 100%);
-    background-image: -webkit-linear-gradient( 90deg, rgb( 222, 233, 255 ) 0%, rgb( 255, 255, 255 ) 100%);
+    background-image: -moz-linear-gradient( 90deg, rgb( 255, 209, 209 ) 0%, rgb( 255, 255, 255 ) 100%);
+    background-image: -webkit-linear-gradient( 90deg, rgb( 255, 209, 209 ) 0%, rgb( 255, 255, 255 ) 100%);
     position: relative;
     width: auto;
     height: auto;
@@ -85,7 +85,7 @@ button div {
     display: table;
     width: 100%;
     height: 100%;
-    color: #002366;
+    color: #360000;
 }
 button div p {
     display: table-cell;
@@ -94,23 +94,22 @@ button div p {
 }
 button:hover, button:focus {
     border-width: 1px;
-    border-color: rgb( 91, 126, 193 );
-    border-style: outset;
+    border-color: rgb( 161, 107, 107 );
+    border-style: solid;
     border-radius: 3px;
-    background-image: -moz-linear-gradient( 90deg, rgb( 225, 235, 255 ) 0%, rgb( 255, 255, 255 ) 100%);
-    background-image: -webkit-linear-gradient( 90deg, rgb( 225, 235, 255 ) 0%, rgb( 255, 255, 255 ) 100%);
+    background-image: -moz-linear-gradient( 90deg, rgb( 255, 209, 209 ) 0%, rgb( 255, 255, 255 ) 100%);
+    background-image: -webkit-linear-gradient( 90deg, rgb( 255, 209, 209 ) 0%, rgb( 255, 255, 255 ) 100%);
     position: relative;
     width: auto;
     height: auto;
 }
-
 button:active {
     border-width: 1px;
-    border-color: rgb( 115, 150, 217 );
-    border-style: inset;
+    border-color: rgb( 186, 132, 132 );
+    border-style: solid;
     border-radius: 3px;
-    background-image: -moz-linear-gradient( 90deg, rgb( 255, 255, 255 ) 0%, rgb( 209, 224, 255 ) 100%);
-    background-image: -webkit-linear-gradient( 90deg, rgb( 255, 255, 255 ) 0%, rgb( 209, 224, 255 ) 100%);
+    background-image: -moz-linear-gradient( 90deg, rgb( 255, 255, 255 ) 0%, rgb( 255, 211, 211 ) 100%);
+    background-image: -webkit-linear-gradient( 90deg, rgb( 255, 255, 255 ) 0%, rgb( 255, 211, 211 ) 100%);
     position: relative;
     width: auto;
     height: auto;
